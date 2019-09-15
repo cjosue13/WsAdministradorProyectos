@@ -1,0 +1,180 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ws.admin.ac.cr.model;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+/**
+ *
+ * @author Carlos Olivares
+ */
+@Entity
+@Table(name = "ADM_ACTIVIDAD")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Actividad.findAll", query = "SELECT a FROM Actividad a")
+    , @NamedQuery(name = "Actividad.findByActId", query = "SELECT a FROM Actividad a WHERE a.actId = :actId")
+    , @NamedQuery(name = "Actividad.findByActDescripcion", query = "SELECT a FROM Actividad a WHERE a.actDescripcion = :actDescripcion")
+    , @NamedQuery(name = "Actividad.findByActEncargado", query = "SELECT a FROM Actividad a WHERE a.actEncargado = :actEncargado")
+    , @NamedQuery(name = "Actividad.findByActFechainicio", query = "SELECT a FROM Actividad a WHERE a.actFechainicio = :actFechainicio")
+    , @NamedQuery(name = "Actividad.findByActFechafinal", query = "SELECT a FROM Actividad a WHERE a.actFechafinal = :actFechafinal")
+    , @NamedQuery(name = "Actividad.findByActEstado", query = "SELECT a FROM Actividad a WHERE a.actEstado = :actEstado")
+    , @NamedQuery(name = "Actividad.findByActVersion", query = "SELECT a FROM Actividad a WHERE a.actVersion = :actVersion")})
+public class Actividad implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Id
+    @Basic(optional = false)
+    @Column(name = "ACT_ID")
+    private BigDecimal actId;
+    @Basic(optional = false)
+    @Column(name = "ACT_DESCRIPCION")
+    private String actDescripcion;
+    @Basic(optional = false)
+    @Column(name = "ACT_ENCARGADO")
+    private String actEncargado;
+    @Basic(optional = false)
+    @Column(name = "ACT_FECHAINICIO")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date actFechainicio;
+    @Basic(optional = false)
+    @Column(name = "ACT_FECHAFINAL")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date actFechafinal;
+    @Basic(optional = false)
+    @Column(name = "ACT_ESTADO")
+    private String actEstado;
+    @Basic(optional = false)
+    @Column(name = "ACT_VERSION")
+    private BigInteger actVersion;
+    @JoinColumn(name = "PRO_ID", referencedColumnName = "PRO_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Proyecto proId;
+
+    public Actividad() {
+    }
+
+    public Actividad(BigDecimal actId) {
+        this.actId = actId;
+    }
+
+    public Actividad(BigDecimal actId, String actDescripcion, String actEncargado, Date actFechainicio, Date actFechafinal, String actEstado, BigInteger actVersion) {
+        this.actId = actId;
+        this.actDescripcion = actDescripcion;
+        this.actEncargado = actEncargado;
+        this.actFechainicio = actFechainicio;
+        this.actFechafinal = actFechafinal;
+        this.actEstado = actEstado;
+        this.actVersion = actVersion;
+    }
+
+    public BigDecimal getActId() {
+        return actId;
+    }
+
+    public void setActId(BigDecimal actId) {
+        this.actId = actId;
+    }
+
+    public String getActDescripcion() {
+        return actDescripcion;
+    }
+
+    public void setActDescripcion(String actDescripcion) {
+        this.actDescripcion = actDescripcion;
+    }
+
+    public String getActEncargado() {
+        return actEncargado;
+    }
+
+    public void setActEncargado(String actEncargado) {
+        this.actEncargado = actEncargado;
+    }
+
+    public Date getActFechainicio() {
+        return actFechainicio;
+    }
+
+    public void setActFechainicio(Date actFechainicio) {
+        this.actFechainicio = actFechainicio;
+    }
+
+    public Date getActFechafinal() {
+        return actFechafinal;
+    }
+
+    public void setActFechafinal(Date actFechafinal) {
+        this.actFechafinal = actFechafinal;
+    }
+
+    public String getActEstado() {
+        return actEstado;
+    }
+
+    public void setActEstado(String actEstado) {
+        this.actEstado = actEstado;
+    }
+
+    public BigInteger getActVersion() {
+        return actVersion;
+    }
+
+    public void setActVersion(BigInteger actVersion) {
+        this.actVersion = actVersion;
+    }
+
+    public Proyecto getProId() {
+        return proId;
+    }
+
+    public void setProId(Proyecto proId) {
+        this.proId = proId;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (actId != null ? actId.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Actividad)) {
+            return false;
+        }
+        Actividad other = (Actividad) object;
+        if ((this.actId == null && other.actId != null) || (this.actId != null && !this.actId.equals(other.actId))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "ws.admin.ac.cr.model.Actividad[ actId=" + actId + " ]";
+    }
+    
+}
