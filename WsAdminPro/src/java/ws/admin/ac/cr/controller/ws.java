@@ -26,6 +26,15 @@ public class ws {
     }
 
     /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getUsuario")
+    public String getUsuario(@WebParam(name = "Usuario") String Usuario, @WebParam(name = "contrasenna") String contrasenna) {
+        //TODO write your implementation code here:
+        return "Usuario: "+ Usuario+" Contraseña: "+ contrasenna;
+    }
+
+    /**
      * This is a sample web service operation
      */
     
