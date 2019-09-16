@@ -6,17 +6,18 @@
 package ws.admin.ac.cr.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -37,15 +38,17 @@ public class AdminiPorProyecto implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
+    @SequenceGenerator(name = "ADMPRO_ID_GENERATOR", sequenceName = "ADM_ADMIN_X_PRO_SEQ01", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ADMPRO_ID_GENERATOR")
     @Basic(optional = false)
     @Column(name = "AXP_ID")
-    private BigDecimal axpId;
+    private Long axpId;
     @Basic(optional = false)
     @Column(name = "AXP_TIPO")
     private String axpTipo;
     @Basic(optional = false)
     @Column(name = "AXP_VERSION")
-    private BigInteger axpVersion;
+    private Long axpVersion;
     @JoinColumn(name = "ADN_ID", referencedColumnName = "ADN_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Administrador adnId;
@@ -55,22 +58,30 @@ public class AdminiPorProyecto implements Serializable {
 
     public AdminiPorProyecto() {
     }
-
-    public AdminiPorProyecto(BigDecimal axpId) {
+    public AdminiPorProyecto(AdminPorProyectoDto adminPro) {
+        this.axpId = adminPro.getAxpId();
+        this.actualizar(adminPro);
+    }
+    
+    //Rellenar datos
+    public void actualizar(AdminPorProyectoDto adminPro){
+        
+    }
+    public AdminiPorProyecto(Long axpId) {
         this.axpId = axpId;
     }
 
-    public AdminiPorProyecto(BigDecimal axpId, String axpTipo, BigInteger axpVersion) {
+    public AdminiPorProyecto(Long axpId, String axpTipo, Long axpVersion) {
         this.axpId = axpId;
         this.axpTipo = axpTipo;
         this.axpVersion = axpVersion;
     }
 
-    public BigDecimal getAxpId() {
+    public Long getAxpId() {
         return axpId;
     }
 
-    public void setAxpId(BigDecimal axpId) {
+    public void setAxpId(Long axpId) {
         this.axpId = axpId;
     }
 
@@ -82,11 +93,11 @@ public class AdminiPorProyecto implements Serializable {
         this.axpTipo = axpTipo;
     }
 
-    public BigInteger getAxpVersion() {
+    public Long getAxpVersion() {
         return axpVersion;
     }
 
-    public void setAxpVersion(BigInteger axpVersion) {
+    public void setAxpVersion(Long axpVersion) {
         this.axpVersion = axpVersion;
     }
 

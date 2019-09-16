@@ -6,17 +6,18 @@
 package ws.admin.ac.cr.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -39,15 +40,18 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Administrador.findByAdnUsuario", query = "SELECT a FROM Administrador a WHERE a.adnUsuario = :adnUsuario")
     , @NamedQuery(name = "Administrador.findByAdnContrasena", query = "SELECT a FROM Administrador a WHERE a.adnContrasena = :adnContrasena")
     , @NamedQuery(name = "Administrador.findByAdnEstado", query = "SELECT a FROM Administrador a WHERE a.adnEstado = :adnEstado")
-    , @NamedQuery(name = "Administrador.findByAdnVersion", query = "SELECT a FROM Administrador a WHERE a.adnVersion = :adnVersion")})
+    , @NamedQuery(name = "Administrador.findByAdnVersion", query = "SELECT a FROM Administrador a WHERE a.adnVersion = :adnVersion")
+    ,@NamedQuery(name = "Administrador.findByUsuClave", query = "SELECT a FROM Administrador a WHERE a.adnUsuario = :adnUsuario AND a.adnContrasena = :adnContrasena")})
 public class Administrador implements Serializable {
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
+    @SequenceGenerator(name = "ADM_ID_GENERATOR", sequenceName = "ADM_ADMINISTRADOR_SEQ01", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ADM_ID_GENERATOR")
     @Basic(optional = false)
     @Column(name = "ADN_ID")
-    private BigDecimal adnId;
+    private Long adnId;
     @Basic(optional = false)
     @Column(name = "ADN_NOMBRE")
     private String adnNombre;
@@ -74,18 +78,18 @@ public class Administrador implements Serializable {
     private String adnEstado;
     @Basic(optional = false)
     @Column(name = "ADN_VERSION")
-    private BigInteger adnVersion;
+    private Long adnVersion;
     @OneToMany(mappedBy = "adnId", fetch = FetchType.LAZY)
     private List<AdminiPorProyecto> adminiPorProyectoList;
 
     public Administrador() {
     }
 
-    public Administrador(BigDecimal adnId) {
+    public Administrador(Long adnId) {
         this.adnId = adnId;
     }
 
-    public Administrador(BigDecimal adnId, String adnNombre, String adnPapellido, String adnSapellido, String adnCedula, String adnCorreo, String adnUsuario, String adnContrasena, String adnEstado, BigInteger adnVersion) {
+    public Administrador(Long adnId, String adnNombre, String adnPapellido, String adnSapellido, String adnCedula, String adnCorreo, String adnUsuario, String adnContrasena, String adnEstado, Long adnVersion) {
         this.adnId = adnId;
         this.adnNombre = adnNombre;
         this.adnPapellido = adnPapellido;
@@ -97,12 +101,26 @@ public class Administrador implements Serializable {
         this.adnEstado = adnEstado;
         this.adnVersion = adnVersion;
     }
-
-    public BigDecimal getAdnId() {
+    public Administrador(AdministradorDto admin) {
+        this.adnId = admin.getAdnId();
+        this.actualizar(admin);
+    }
+    public void actualizar(AdministradorDto admin) {
+        this.adnNombre = admin.getAdnNombre();
+        this.adnPapellido = admin.getAdnPapellido();
+        this.adnSapellido = admin.getAdnSapellido();
+        this.adnCedula = admin.getAdnCedula();
+        this.adnCorreo = admin.getAdnCorreo();
+        this.adnUsuario = admin.getAdnUsuario();
+        this.adnContrasena = admin.getAdnContrasena();
+        this.adnEstado = admin.getAdnEstado();
+        this.adnVersion = admin.getAdnVersion();
+    }
+    public Long getAdnId() {
         return adnId;
     }
 
-    public void setAdnId(BigDecimal adnId) {
+    public void setAdnId(Long adnId) {
         this.adnId = adnId;
     }
 
@@ -170,11 +188,11 @@ public class Administrador implements Serializable {
         this.adnEstado = adnEstado;
     }
 
-    public BigInteger getAdnVersion() {
+    public Long getAdnVersion() {
         return adnVersion;
     }
 
-    public void setAdnVersion(BigInteger adnVersion) {
+    public void setAdnVersion(Long adnVersion) {
         this.adnVersion = adnVersion;
     }
 

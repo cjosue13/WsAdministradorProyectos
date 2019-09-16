@@ -6,18 +6,19 @@
 package ws.admin.ac.cr.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -41,42 +42,51 @@ public class Seguimiento implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
+    @SequenceGenerator(name = "SEG_ID_GENERATOR", sequenceName = "ADM_SEGUIMIENTO_SEQ01", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEG_ID_GENERATOR")
     @Basic(optional = false)
     @Column(name = "SEG_ID")
-    private BigDecimal segId;
+    private Long segId;
     @Basic(optional = false)
     @Column(name = "SEG_FECHA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date segFecha;
     @Basic(optional = false)
     @Column(name = "SEG_AVANCE")
-    private BigInteger segAvance;
+    private Long segAvance;
     @Basic(optional = false)
     @Column(name = "SEG_VERSION")
-    private BigInteger segVersion;
+    private Long segVersion;
     @JoinColumn(name = "PRO_ID", referencedColumnName = "PRO_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Proyecto proId;
 
     public Seguimiento() {
     }
-
-    public Seguimiento(BigDecimal segId) {
+    public Seguimiento(SeguimientoDto seguimiento) {
+        this.segId = seguimiento.getSegId();
+        this.actualizar(seguimiento);
+    }
+     //Rellenar datos
+    public void actualizar(SeguimientoDto seguimiento){
+        
+    }
+    public Seguimiento(Long segId) {
         this.segId = segId;
     }
 
-    public Seguimiento(BigDecimal segId, Date segFecha, BigInteger segAvance, BigInteger segVersion) {
+    public Seguimiento(Long segId, Date segFecha, Long segAvance, Long segVersion) {
         this.segId = segId;
         this.segFecha = segFecha;
         this.segAvance = segAvance;
         this.segVersion = segVersion;
     }
 
-    public BigDecimal getSegId() {
+    public Long getSegId() {
         return segId;
     }
 
-    public void setSegId(BigDecimal segId) {
+    public void setSegId(Long segId) {
         this.segId = segId;
     }
 
@@ -88,19 +98,19 @@ public class Seguimiento implements Serializable {
         this.segFecha = segFecha;
     }
 
-    public BigInteger getSegAvance() {
+    public Long getSegAvance() {
         return segAvance;
     }
 
-    public void setSegAvance(BigInteger segAvance) {
+    public void setSegAvance(Long segAvance) {
         this.segAvance = segAvance;
     }
 
-    public BigInteger getSegVersion() {
+    public Long getSegVersion() {
         return segVersion;
     }
 
-    public void setSegVersion(BigInteger segVersion) {
+    public void setSegVersion(Long segVersion) {
         this.segVersion = segVersion;
     }
 

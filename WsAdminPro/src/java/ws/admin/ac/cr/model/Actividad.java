@@ -6,18 +6,19 @@
 package ws.admin.ac.cr.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -44,9 +45,11 @@ public class Actividad implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
+    @SequenceGenerator(name = "ACT_ID_GENERATOR", sequenceName = "ADM_ACTIVIDAD_SEQ01", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ACT_ID_GENERATOR")
     @Basic(optional = false)
     @Column(name = "ACT_ID")
-    private BigDecimal actId;
+    private Long actId;
     @Basic(optional = false)
     @Column(name = "ACT_DESCRIPCION")
     private String actDescripcion;
@@ -66,19 +69,27 @@ public class Actividad implements Serializable {
     private String actEstado;
     @Basic(optional = false)
     @Column(name = "ACT_VERSION")
-    private BigInteger actVersion;
+    private Long actVersion;
     @JoinColumn(name = "PRO_ID", referencedColumnName = "PRO_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Proyecto proId;
 
     public Actividad() {
     }
-
-    public Actividad(BigDecimal actId) {
+    
+    public Actividad(ActividadDto actividad) {
+        this.actId = actividad.getActId();
+        this.actualizar(actividad);
+    }
+    //Rellenar datos
+    public void actualizar(ActividadDto actividad){
+        
+    }
+    public Actividad(Long actId) {
         this.actId = actId;
     }
 
-    public Actividad(BigDecimal actId, String actDescripcion, String actEncargado, Date actFechainicio, Date actFechafinal, String actEstado, BigInteger actVersion) {
+    public Actividad(Long actId, String actDescripcion, String actEncargado, Date actFechainicio, Date actFechafinal, String actEstado, Long actVersion) {
         this.actId = actId;
         this.actDescripcion = actDescripcion;
         this.actEncargado = actEncargado;
@@ -88,11 +99,11 @@ public class Actividad implements Serializable {
         this.actVersion = actVersion;
     }
 
-    public BigDecimal getActId() {
+    public Long getActId() {
         return actId;
     }
 
-    public void setActId(BigDecimal actId) {
+    public void setActId(Long actId) {
         this.actId = actId;
     }
 
@@ -136,11 +147,11 @@ public class Actividad implements Serializable {
         this.actEstado = actEstado;
     }
 
-    public BigInteger getActVersion() {
+    public Long getActVersion() {
         return actVersion;
     }
 
-    public void setActVersion(BigInteger actVersion) {
+    public void setActVersion(Long actVersion) {
         this.actVersion = actVersion;
     }
 

@@ -6,18 +6,19 @@
 package ws.admin.ac.cr.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -50,9 +51,11 @@ public class Proyecto implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
+    @SequenceGenerator(name = "PRO_ID_GENERATOR", sequenceName = "ADM_PROYECTO_SEQ01", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PRO_ID_GENERATOR")
     @Basic(optional = false)
     @Column(name = "PRO_ID")
-    private BigDecimal proId;
+    private Long proId;
     @Basic(optional = false)
     @Column(name = "PRO_NOMBRE")
     private String proNombre;
@@ -86,7 +89,7 @@ public class Proyecto implements Serializable {
     private String proEstado;
     @Basic(optional = false)
     @Column(name = "PRO_VERSION")
-    private BigInteger proVersion;
+    private Long proVersion;
     @OneToMany(mappedBy = "proId", fetch = FetchType.LAZY)
     private List<Actividad> actividadList;
     @OneToMany(mappedBy = "proId", fetch = FetchType.LAZY)
@@ -96,12 +99,19 @@ public class Proyecto implements Serializable {
 
     public Proyecto() {
     }
-
-    public Proyecto(BigDecimal proId) {
+    public Proyecto(ProyectoDto proyecto) {
+        this.proId = proyecto.getProId();
+        this.actualizar(proyecto);
+    }
+    //Rellenar datos
+    public void actualizar(ProyectoDto proyecto){
+        
+    }
+    public Proyecto(Long proId) {
         this.proId = proId;
     }
 
-    public Proyecto(BigDecimal proId, String proNombre, String proPatrocinador, String proLiderusuario, String proLidertecnico, String proCorreopatrocinador, String proCorreousuario, String proCorreotecnico, Date proFechainicio, String proEstado, BigInteger proVersion) {
+    public Proyecto(Long proId, String proNombre, String proPatrocinador, String proLiderusuario, String proLidertecnico, String proCorreopatrocinador, String proCorreousuario, String proCorreotecnico, Date proFechainicio, String proEstado, Long proVersion) {
         this.proId = proId;
         this.proNombre = proNombre;
         this.proPatrocinador = proPatrocinador;
@@ -115,11 +125,11 @@ public class Proyecto implements Serializable {
         this.proVersion = proVersion;
     }
 
-    public BigDecimal getProId() {
+    public Long getProId() {
         return proId;
     }
 
-    public void setProId(BigDecimal proId) {
+    public void setProId(Long proId) {
         this.proId = proId;
     }
 
@@ -203,11 +213,11 @@ public class Proyecto implements Serializable {
         this.proEstado = proEstado;
     }
 
-    public BigInteger getProVersion() {
+    public Long getProVersion() {
         return proVersion;
     }
 
-    public void setProVersion(BigInteger proVersion) {
+    public void setProVersion(Long proVersion) {
         this.proVersion = proVersion;
     }
 
