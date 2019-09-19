@@ -5,15 +5,12 @@
  */
 package ws.admin.ac.cr.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
-import javax.ws.rs.core.GenericEntity;
 import ws.admin.ac.cr.model.AdministradorDto;
 import ws.admin.ac.cr.service.ActividadService;
 import ws.admin.ac.cr.service.AdminiPorProService;
@@ -61,8 +58,8 @@ public class ws {
             return String.valueOf(CodigoRespuesta.ERROR_INTERNO.getValue());
         }
     }
-/*
-    @WebMethod(operationName = "getAdministradores")
+
+    /*  @WebMethod(operationName = "getAdministradores")
     public String getAdministradors() {
         try {
             Respuesta respuesta = administradorService.getAdministradors();
@@ -79,18 +76,31 @@ public class ws {
             return String.status(CodigoRespuesta.ERROR_INTERNO.getValue()).entity("Error obteniendo el Administrador").build();
         }
     }
-
+     */
     @WebMethod(operationName = "guardarAdministrador")
-    public String guardarAdministrador(@WebParam(name = "Administrador") AdministradorDto Administrador) {
+    public Respuesta guardarAdministrador(@WebParam(name = "Administrador") AdministradorDto Administrador) {
+        
+       /* try {
+            Respuesta respuesta = usuarioService.guardarUsuario(Usuario);
+            if (!respuesta.getEstado()) {
+                return Response.status(respuesta.getCodigoRespuesta().getValue()).entity(respuesta.getMensaje()).build();
+            }
+            return Response.ok((UsuarioDto) respuesta.getResultado("Usuario")).build();
+        } catch (Exception ex) {
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.status(CodigoRespuesta.ERROR_INTERNO.getValue()).entity("Error guardando el Usuario").build();
+        }*/
+        
         try {
             Respuesta respuesta = administradorService.guardarAdministrador(Administrador);
-            if (!respuesta.getEstado()) {
-                return String.status(respuesta.getCodigoRespuesta().getValue()).entity(respuesta.getMensaje()).build();
-            }
-            return String.ok((AdministradorDto) respuesta.getResultado("Administrador")).build();
+            return respuesta;
+           /* if (!respuesta.getEstado()) {
+                return null;//new Respuesta(false, respuesta.getCodigoRespuesta(), respuesta.getMensajeInterno(), respuesta.getMensaje());
+            }*/
+           // return (AdministradorDto) respuesta.getResultado("Administrador");//new Respuesta(true, CodigoRespuesta.CORRECTO, "", "", "Administrador", (AdministradorDto) respuesta.getResultado("Usuario"));
         } catch (Exception ex) {
             Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
-            return String.status(CodigoRespuesta.ERROR_INTERNO.getValue()).entity("Error guardando el Administrador").build();
+            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Error guardando usuario", ex.getMessage());
         }
     }
 
@@ -99,16 +109,12 @@ public class ws {
         try {
             Respuesta respuesta = administradorService.eliminarAdministrador(ID);
             if (!respuesta.getEstado()) {
-                return String.status(respuesta.getCodigoRespuesta().getValue()).entity(respuesta.getMensaje()).build();
+                return respuesta.getMensaje();
             }
-            return String.ok((AdministradorDto) respuesta.getResultado("Administrador")).build();
+            return respuesta.getMensaje();
         } catch (Exception ex) {
             Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
-            return String.status(CodigoRespuesta.ERROR_INTERNO.getValue()).entity("Error Eliminar el Administrador").build();
+            return "Error al eliminar el Administrador";
         }
     }
-    /**
-     * This is a sample web service operation
-     */
-
 }
