@@ -6,6 +6,7 @@
 package ws.admin.ac.cr.model;
 
 import java.io.Serializable;
+import java.time.ZoneId;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -22,7 +23,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -40,7 +40,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Actividad.findByActFechainicio", query = "SELECT a FROM Actividad a WHERE a.actFechainicio = :actFechainicio")
     , @NamedQuery(name = "Actividad.findByActFechafinal", query = "SELECT a FROM Actividad a WHERE a.actFechafinal = :actFechafinal")
     , @NamedQuery(name = "Actividad.findByActEstado", query = "SELECT a FROM Actividad a WHERE a.actEstado = :actEstado")
-    , @NamedQuery(name = "Actividad.findByActVersion", query = "SELECT a FROM Actividad a WHERE a.actVersion = :actVersion")})
+    , @NamedQuery(name = "Actividad.findByActVersion", query = "SELECT a FROM Actividad a WHERE a.actVersion = :actVersion")
+    , @NamedQuery(name = "Actividad.findByActNumorden", query = "SELECT a FROM Actividad a WHERE a.actNumorden = :actNumorden")
+    , @NamedQuery(name = "Actividad.findByActFechainireal", query = "SELECT a FROM Actividad a WHERE a.actFechainireal = :actFechainireal")
+    , @NamedQuery(name = "Actividad.findByActFechafinreal", query = "SELECT a FROM Actividad a WHERE a.actFechafinreal = :actFechafinreal")})
 public class Actividad implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -68,29 +71,30 @@ public class Actividad implements Serializable {
     @Basic(optional = false)
     @Column(name = "ACT_ESTADO")
     private String actEstado;
-    @Version
+    @Basic(optional = false)
     @Column(name = "ACT_VERSION")
     private Long actVersion;
-    @JoinColumn(name = "PRO_ID", referencedColumnName = "PRO_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Proyecto proId;
+    @Basic(optional = false)
+    @Column(name = "ACT_NUMORDEN")
+    private Integer actNumorden;
+    @Column(name = "ACT_FECHAINIREAL")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date actFechainireal;
+    @Column(name = "ACT_FECHAFINREAL")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date actFechafinreal;
+    @JoinColumn(name = "ACT_PROYECTO", referencedColumnName = "PRO_ID")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Proyecto actProyecto;
 
     public Actividad() {
     }
-    
-    public Actividad(ActividadDto actividad) {
-        this.actId = actividad.getActId();
-        this.actualizar(actividad);
-    }
-    //Rellenar datos
-    public void actualizar(ActividadDto actividad){
-        
-    }
+
     public Actividad(Long actId) {
         this.actId = actId;
     }
 
-    public Actividad(Long actId, String actDescripcion, String actEncargado, Date actFechainicio, Date actFechafinal, String actEstado, Long actVersion) {
+    public Actividad(Long actId, String actDescripcion, String actEncargado, Date actFechainicio, Date actFechafinal, String actEstado, Long actVersion, Integer actNumorden) {
         this.actId = actId;
         this.actDescripcion = actDescripcion;
         this.actEncargado = actEncargado;
@@ -98,8 +102,27 @@ public class Actividad implements Serializable {
         this.actFechafinal = actFechafinal;
         this.actEstado = actEstado;
         this.actVersion = actVersion;
+        this.actNumorden = actNumorden;
     }
-
+    public Actividad(ActividadDto actividad) {
+        this.actId = actividad.getActId();
+        this.actualizar(actividad);
+    }
+    //Rellenar datos
+    public void actualizar(ActividadDto actividad){
+        this.actDescripcion = actividad.getActDescripcion();
+        this.actDescripcion = actividad.getActDescripcion();
+        this.actEncargado = actividad.getActEncargado();
+        this.actEstado = actividad.getActEstado();
+        this.actFechafinreal = Date.from(actividad.getActFechafinreal().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.actFechainireal = Date.from(actividad.getActFechainireal().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.actFechafinal = Date.from(actividad.getActFechafinal().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.actFechainicio = Date.from(actividad.getActFechainicio().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.actNumorden = actividad.getActNumorden();
+        this.actProyecto = new Proyecto(actividad.getActProyecto());
+        this.actVersion = actividad.getActVersion();
+        
+    }
     public Long getActId() {
         return actId;
     }
@@ -156,12 +179,36 @@ public class Actividad implements Serializable {
         this.actVersion = actVersion;
     }
 
-    public Proyecto getProId() {
-        return proId;
+    public Integer getActNumorden() {
+        return actNumorden;
     }
 
-    public void setProId(Proyecto proId) {
-        this.proId = proId;
+    public void setActNumorden(Integer actNumorden) {
+        this.actNumorden = actNumorden;
+    }
+
+    public Date getActFechainireal() {
+        return actFechainireal;
+    }
+
+    public void setActFechainireal(Date actFechainireal) {
+        this.actFechainireal = actFechainireal;
+    }
+
+    public Date getActFechafinreal() {
+        return actFechafinreal;
+    }
+
+    public void setActFechafinreal(Date actFechafinreal) {
+        this.actFechafinreal = actFechafinreal;
+    }
+
+    public Proyecto getActProyecto() {
+        return actProyecto;
+    }
+
+    public void setActProyecto(Proyecto actProyecto) {
+        this.actProyecto = actProyecto;
     }
 
     @Override
@@ -186,7 +233,7 @@ public class Actividad implements Serializable {
 
     @Override
     public String toString() {
-        return "ws.admin.ac.cr.model.Actividad[ actId=" + actId + " ]";
+        return "cr.ac.una.unaplanillaws2.controller.model2.Actividad[ actId=" + actId + " ]";
     }
     
 }

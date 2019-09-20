@@ -14,19 +14,25 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Carlos Olivares
  */
 @XmlRootElement(name = "AdminPorProyectoDto")
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 public class AdminPorProyectoDto {
     private Long axpId;
     private String axpTipo;
     private Long axpVersion;
-    private AdministradorDto adnId;
-    private ProyectoDto proId;
+    private AdministradorDto axpAdministrador;
+    private ProyectoDto axpProyecto;
     
     public AdminPorProyectoDto() {
     }
     //Rellenar datos
-    public AdminPorProyectoDto(AdminiPorProyecto adminPro) {
+    public AdminPorProyectoDto(AdminPorPro adminPro) {
+        this.axpId = adminPro.getAxpId();
+        this.axpAdministrador = new AdministradorDto(adminPro.getAxpAdministrador());
+        this.axpProyecto = new ProyectoDto(adminPro.getAxpProyecto());
+        this.axpTipo = adminPro.getAxpTipo();
+        this.axpVersion = adminPro.getAxpVersion();
     }
+
     public Long getAxpId() {
         return axpId;
     }
@@ -51,20 +57,21 @@ public class AdminPorProyectoDto {
         this.axpVersion = axpVersion;
     }
 
-    public AdministradorDto getAdnId() {
-        return adnId;
+    public AdministradorDto getAxpAdministrador() {
+        return axpAdministrador;
     }
 
-    public void setAdnId(AdministradorDto adnId) {
-        this.adnId = adnId;
+    public void setAxpAdministrador(AdministradorDto axpAdministrador) {
+        this.axpAdministrador = axpAdministrador;
     }
 
-    public ProyectoDto getProId() {
-        return proId;
+    public ProyectoDto getAxpProyecto() {
+        return axpProyecto;
     }
 
-    public void setProId(ProyectoDto proId) {
-        this.proId = proId;
+    public void setAxpProyecto(ProyectoDto axpProyecto) {
+        this.axpProyecto = axpProyecto;
     }
+    
     
 }

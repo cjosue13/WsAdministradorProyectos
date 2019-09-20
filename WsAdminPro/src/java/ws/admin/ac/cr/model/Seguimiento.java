@@ -6,6 +6,7 @@
 package ws.admin.ac.cr.model;
 
 import java.io.Serializable;
+import java.time.ZoneId;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -22,7 +23,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -54,33 +54,40 @@ public class Seguimiento implements Serializable {
     private Date segFecha;
     @Basic(optional = false)
     @Column(name = "SEG_AVANCE")
-    private Long segAvance;
-    @Version
+    private Integer segAvance;
+    @Basic(optional = false)
     @Column(name = "SEG_VERSION")
     private Long segVersion;
-    @JoinColumn(name = "PRO_ID", referencedColumnName = "PRO_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Proyecto proId;
+    @JoinColumn(name = "SEG_PROYECTO", referencedColumnName = "PRO_ID")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Proyecto segProyecto;
 
     public Seguimiento() {
     }
-    public Seguimiento(SeguimientoDto seguimiento) {
-        this.segId = seguimiento.getSegId();
-        this.actualizar(seguimiento);
-    }
-     //Rellenar datos
-    public void actualizar(SeguimientoDto seguimiento){
-        
-    }
+
     public Seguimiento(Long segId) {
         this.segId = segId;
     }
 
-    public Seguimiento(Long segId, Date segFecha, Long segAvance, Long segVersion) {
+    public Seguimiento(Long segId, Date segFecha, Integer segAvance, Long segVersion) {
         this.segId = segId;
         this.segFecha = segFecha;
         this.segAvance = segAvance;
         this.segVersion = segVersion;
+    }
+
+    public Seguimiento(SeguimientoDto seguimiento) {
+        this.segId = seguimiento.getSegId();
+        this.actualizar(seguimiento);
+    }
+    //Rellenar datos
+
+    public void actualizar(SeguimientoDto seguimiento) {
+        this.segAvance = seguimiento.getSegAvance();
+        this.segId = seguimiento.getSegId();
+        this.segProyecto = new Proyecto(seguimiento.getSegProyecto());
+        this.segFecha = Date.from(seguimiento.getSegFecha().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.segVersion = seguimiento.getSegVersion();
     }
 
     public Long getSegId() {
@@ -99,11 +106,11 @@ public class Seguimiento implements Serializable {
         this.segFecha = segFecha;
     }
 
-    public Long getSegAvance() {
+    public Integer getSegAvance() {
         return segAvance;
     }
 
-    public void setSegAvance(Long segAvance) {
+    public void setSegAvance(Integer segAvance) {
         this.segAvance = segAvance;
     }
 
@@ -115,12 +122,12 @@ public class Seguimiento implements Serializable {
         this.segVersion = segVersion;
     }
 
-    public Proyecto getProId() {
-        return proId;
+    public Proyecto getSegProyecto() {
+        return segProyecto;
     }
 
-    public void setProId(Proyecto proId) {
-        this.proId = proId;
+    public void setSegProyecto(Proyecto segProyecto) {
+        this.segProyecto = segProyecto;
     }
 
     @Override
@@ -145,7 +152,7 @@ public class Seguimiento implements Serializable {
 
     @Override
     public String toString() {
-        return "ws.admin.ac.cr.model.Seguimiento[ segId=" + segId + " ]";
+        return "cr.ac.una.unaplanillaws2.controller.model2.Seguimiento[ segId=" + segId + " ]";
     }
-    
+
 }

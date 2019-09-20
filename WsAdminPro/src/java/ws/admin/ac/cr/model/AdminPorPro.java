@@ -19,7 +19,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -30,11 +29,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "ADM_ADMIN_X_PRO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "AdminiPorProyecto.findAll", query = "SELECT a FROM AdminiPorProyecto a")
-    , @NamedQuery(name = "AdminiPorProyecto.findByAxpId", query = "SELECT a FROM AdminiPorProyecto a WHERE a.axpId = :axpId")
-    , @NamedQuery(name = "AdminiPorProyecto.findByAxpTipo", query = "SELECT a FROM AdminiPorProyecto a WHERE a.axpTipo = :axpTipo")
-    , @NamedQuery(name = "AdminiPorProyecto.findByAxpVersion", query = "SELECT a FROM AdminiPorProyecto a WHERE a.axpVersion = :axpVersion")})
-public class AdminiPorProyecto implements Serializable {
+    @NamedQuery(name = "AdminPorPro.findAll", query = "SELECT a FROM AdminPorPro a")
+    , @NamedQuery(name = "AdminPorPro.findByAxpId", query = "SELECT a FROM AdminPorPro a WHERE a.axpId = :axpId")
+    , @NamedQuery(name = "AdminPorPro.findByAxpTipo", query = "SELECT a FROM AdminPorPro a WHERE a.axpTipo = :axpTipo")
+    , @NamedQuery(name = "AdminPorPro.findByAxpVersion", query = "SELECT a FROM AdminPorPro a WHERE a.axpVersion = :axpVersion")})
+public class AdminPorPro implements Serializable {
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -47,35 +46,39 @@ public class AdminiPorProyecto implements Serializable {
     @Basic(optional = false)
     @Column(name = "AXP_TIPO")
     private String axpTipo;
-    @Version
+    @Basic(optional = false)
     @Column(name = "AXP_VERSION")
     private Long axpVersion;
-    @JoinColumn(name = "ADN_ID", referencedColumnName = "ADN_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Administrador adnId;
-    @JoinColumn(name = "PRO_ID", referencedColumnName = "PRO_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Proyecto proId;
+    @JoinColumn(name = "AXP_ADMINISTRADOR", referencedColumnName = "ADN_ID")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Administrador axpAdministrador;
+    @JoinColumn(name = "AXP_PROYECTO", referencedColumnName = "PRO_ID")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Proyecto axpProyecto;
 
-    public AdminiPorProyecto() {
+    public AdminPorPro() {
     }
-    public AdminiPorProyecto(AdminPorProyectoDto adminPro) {
-        this.axpId = adminPro.getAxpId();
-        this.actualizar(adminPro);
-    }
-    
-    //Rellenar datos
-    public void actualizar(AdminPorProyectoDto adminPro){
-        
-    }
-    public AdminiPorProyecto(Long axpId) {
+
+    public AdminPorPro(Long axpId) {
         this.axpId = axpId;
     }
 
-    public AdminiPorProyecto(Long axpId, String axpTipo, Long axpVersion) {
+    public AdminPorPro(Long axpId, String axpTipo, Long axpVersion) {
         this.axpId = axpId;
         this.axpTipo = axpTipo;
         this.axpVersion = axpVersion;
+    }
+    public AdminPorPro(AdminPorProyectoDto adminPro) {
+        this.axpId = adminPro.getAxpId();
+        this.actualizar(adminPro);
+    }
+
+    //Rellenar datos
+    public void actualizar(AdminPorProyectoDto adminPro) {
+        this.axpAdministrador = new Administrador(adminPro.getAxpAdministrador());
+        this.axpProyecto = new Proyecto(adminPro.getAxpProyecto());
+        this.axpTipo = adminPro.getAxpTipo();
+        this.axpVersion = adminPro.getAxpVersion();
     }
 
     public Long getAxpId() {
@@ -102,20 +105,20 @@ public class AdminiPorProyecto implements Serializable {
         this.axpVersion = axpVersion;
     }
 
-    public Administrador getAdnId() {
-        return adnId;
+    public Administrador getAxpAdministrador() {
+        return axpAdministrador;
     }
 
-    public void setAdnId(Administrador adnId) {
-        this.adnId = adnId;
+    public void setAxpAdministrador(Administrador axpAdministrador) {
+        this.axpAdministrador = axpAdministrador;
     }
 
-    public Proyecto getProId() {
-        return proId;
+    public Proyecto getAxpProyecto() {
+        return axpProyecto;
     }
 
-    public void setProId(Proyecto proId) {
-        this.proId = proId;
+    public void setAxpProyecto(Proyecto axpProyecto) {
+        this.axpProyecto = axpProyecto;
     }
 
     @Override
@@ -128,10 +131,10 @@ public class AdminiPorProyecto implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof AdminiPorProyecto)) {
+        if (!(object instanceof AdminPorPro)) {
             return false;
         }
-        AdminiPorProyecto other = (AdminiPorProyecto) object;
+        AdminPorPro other = (AdminPorPro) object;
         if ((this.axpId == null && other.axpId != null) || (this.axpId != null && !this.axpId.equals(other.axpId))) {
             return false;
         }
@@ -140,7 +143,7 @@ public class AdminiPorProyecto implements Serializable {
 
     @Override
     public String toString() {
-        return "ws.admin.ac.cr.model.AdminiPorProyecto[ axpId=" + axpId + " ]";
+        return "cr.ac.una.unaplanillaws2.controller.model2.AdminPorPro[ axpId=" + axpId + " ]";
     }
     
 }

@@ -6,6 +6,7 @@
 package ws.admin.ac.cr.model;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,20 +16,26 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Carlos Olivares
  */
 @XmlRootElement(name = "SeguimientoDto")
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 public class SeguimientoDto {
     private Long segId;
     private LocalDate segFecha;
-    private Long segAvance;
+    private Integer segAvance;
     private Long segVersion;
-    private ProyectoDto proId;
+    private ProyectoDto segProyecto;
 
     public SeguimientoDto() {
     }
     //Rellenar datos
     public SeguimientoDto(Seguimiento seguimiento) {
+        this.segAvance = seguimiento.getSegAvance();
+        this.segId = seguimiento.getSegId();
+        this.segProyecto = new ProyectoDto(seguimiento.getSegProyecto());
+        this.segFecha = seguimiento.getSegFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        this.segVersion = seguimiento.getSegVersion();
         
     }
+
     public Long getSegId() {
         return segId;
     }
@@ -45,11 +52,11 @@ public class SeguimientoDto {
         this.segFecha = segFecha;
     }
 
-    public Long getSegAvance() {
+    public Integer getSegAvance() {
         return segAvance;
     }
 
-    public void setSegAvance(Long segAvance) {
+    public void setSegAvance(Integer segAvance) {
         this.segAvance = segAvance;
     }
 
@@ -59,15 +66,14 @@ public class SeguimientoDto {
 
     public void setSegVersion(Long segVersion) {
         this.segVersion = segVersion;
-    } 
-
-    public ProyectoDto getProId() {
-        return proId;
     }
 
-    public void setProId(ProyectoDto proId) {
-        this.proId = proId;
+    public ProyectoDto getSegProyecto() {
+        return segProyecto;
     }
-    
+
+    public void setSegProyecto(ProyectoDto segProyecto) {
+        this.segProyecto = segProyecto;
+    }
     
 }

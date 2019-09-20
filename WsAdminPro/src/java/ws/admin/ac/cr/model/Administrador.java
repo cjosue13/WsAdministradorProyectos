@@ -8,6 +8,7 @@ package ws.admin.ac.cr.model;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,10 +18,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.QueryHint;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -43,8 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Administrador.findByAdnContrasena", query = "SELECT a FROM Administrador a WHERE a.adnContrasena = :adnContrasena")
     , @NamedQuery(name = "Administrador.findByAdnEstado", query = "SELECT a FROM Administrador a WHERE a.adnEstado = :adnEstado")
     , @NamedQuery(name = "Administrador.findByAdnVersion", query = "SELECT a FROM Administrador a WHERE a.adnVersion = :adnVersion")
-    , @NamedQuery(name = "Administrador.findByUsuClave", query = "SELECT a FROM Administrador a WHERE a.adnContrasena = :adnClave AND a.adnUsuario = :adnUsuario", hints = @QueryHint(name = "eclipselink.refresh", value = "true"))
-})
+    ,@NamedQuery(name = "Administrador.findByUsuClave", query = "SELECT a FROM Administrador a WHERE a.adnUsuario =:adnUsuario AND a.adnContrasena =:adnClave")})
 public class Administrador implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -79,12 +77,12 @@ public class Administrador implements Serializable {
     @Basic(optional = false)
     @Column(name = "ADN_ESTADO")
     private String adnEstado;
-    @OneToMany(mappedBy = "adnId", fetch = FetchType.LAZY)
-    private List<AdminiPorProyecto> adminiPorProyectoList;
-    @Version
+    @Basic(optional = false)
     @Column(name = "ADN_VERSION")
     private Long adnVersion;
-    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "axpAdministrador", fetch = FetchType.LAZY)
+    private List<AdminPorPro> adminPorProList;
+
     public Administrador() {
     }
 
@@ -119,6 +117,7 @@ public class Administrador implements Serializable {
         this.adnEstado = admin.getAdnEstado();
         this.adnVersion = admin.getAdnVersion();
     }
+    
     public Long getAdnId() {
         return adnId;
     }
@@ -200,12 +199,12 @@ public class Administrador implements Serializable {
     }
 
     @XmlTransient
-    public List<AdminiPorProyecto> getAdminiPorProyectoList() {
-        return adminiPorProyectoList;
+    public List<AdminPorPro> getAdminPorProList() {
+        return adminPorProList;
     }
 
-    public void setAdminiPorProyectoList(List<AdminiPorProyecto> adminiPorProyectoList) {
-        this.adminiPorProyectoList = adminiPorProyectoList;
+    public void setAdminPorProList(List<AdminPorPro> adminPorProList) {
+        this.adminPorProList = adminPorProList;
     }
 
     @Override
@@ -230,7 +229,7 @@ public class Administrador implements Serializable {
 
     @Override
     public String toString() {
-        return "ws.admin.ac.cr.model.Administrador[ adnId=" + adnId + " ]";
+        return "cr.ac.una.unaplanillaws2.controller.model2.Administrador[ adnId=" + adnId + " ]";
     }
     
 }

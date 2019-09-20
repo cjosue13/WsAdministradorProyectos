@@ -6,9 +6,11 @@
 package ws.admin.ac.cr.model;
 
 import java.io.Serializable;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,7 +24,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -46,7 +47,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Proyecto.findByProFechainicio", query = "SELECT p FROM Proyecto p WHERE p.proFechainicio = :proFechainicio")
     , @NamedQuery(name = "Proyecto.findByProFechafinal", query = "SELECT p FROM Proyecto p WHERE p.proFechafinal = :proFechafinal")
     , @NamedQuery(name = "Proyecto.findByProEstado", query = "SELECT p FROM Proyecto p WHERE p.proEstado = :proEstado")
-    , @NamedQuery(name = "Proyecto.findByProVersion", query = "SELECT p FROM Proyecto p WHERE p.proVersion = :proVersion")})
+    , @NamedQuery(name = "Proyecto.findByProVersion", query = "SELECT p FROM Proyecto p WHERE p.proVersion = :proVersion")
+    , @NamedQuery(name = "Proyecto.findByProFechainireal", query = "SELECT p FROM Proyecto p WHERE p.proFechainireal = :proFechainireal")
+    , @NamedQuery(name = "Proyecto.findByProFechafinreal", query = "SELECT p FROM Proyecto p WHERE p.proFechafinreal = :proFechafinreal")})
 public class Proyecto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -88,26 +91,21 @@ public class Proyecto implements Serializable {
     @Basic(optional = false)
     @Column(name = "PRO_ESTADO")
     private String proEstado;
-    @Version
+    @Basic(optional = false)
     @Column(name = "PRO_VERSION")
     private Long proVersion;
-    @OneToMany(mappedBy = "proId", fetch = FetchType.LAZY)
-    private List<Actividad> actividadList;
-    @OneToMany(mappedBy = "proId", fetch = FetchType.LAZY)
-    private List<Seguimiento> seguimientoList;
-    @OneToMany(mappedBy = "proId", fetch = FetchType.LAZY)
-    private List<AdminiPorProyecto> adminiPorProyectoList;
+    @Column(name = "PRO_FECHAINIREAL")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date proFechainireal;
+    @Column(name = "PRO_FECHAFINREAL")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date proFechafinreal;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "axpProyecto", fetch = FetchType.LAZY)
+    private List<AdminPorPro> adminPorProList;
 
     public Proyecto() {
     }
-    public Proyecto(ProyectoDto proyecto) {
-        this.proId = proyecto.getProId();
-        this.actualizar(proyecto);
-    }
-    //Rellenar datos
-    public void actualizar(ProyectoDto proyecto){
-        
-    }
+
     public Proyecto(Long proId) {
         this.proId = proId;
     }
@@ -124,6 +122,30 @@ public class Proyecto implements Serializable {
         this.proFechainicio = proFechainicio;
         this.proEstado = proEstado;
         this.proVersion = proVersion;
+    }
+
+    public Proyecto(ProyectoDto proyecto) {
+        this.proId = proyecto.getProId();
+        this.actualizar(proyecto);
+    }
+
+    //Rellenar datos
+    public void actualizar(ProyectoDto proyecto) {
+        this.proCorreopatrocinador = proyecto.getProCorreopatrocinador();
+        this.proCorreotecnico = proyecto.getProCorreotecnico();
+        this.proCorreousuario = proyecto.getProCorreousuario();
+        this.proEstado = proyecto.getProEstado();
+        this.proFechafinreal = Date.from(proyecto.getProFechafinreal().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.proFechainireal = Date.from(proyecto.getProFechainireal().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        //Agregar 2 fechas que faltan
+        this.proFechafinal = Date.from(proyecto.getProFechafinal().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.proFechainicio = Date.from(proyecto.getProFechainicio().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.proLidertecnico = proyecto.getProLidertecnico();
+        this.proLiderusuario = proyecto.getProLiderusuario();
+        this.proNombre = proyecto.getProNombre();
+        this.proPatrocinador = proyecto.getProPatrocinador();
+        this.proVersion = proyecto.getProVersion();
+
     }
 
     public Long getProId() {
@@ -222,31 +244,29 @@ public class Proyecto implements Serializable {
         this.proVersion = proVersion;
     }
 
-    @XmlTransient
-    public List<Actividad> getActividadList() {
-        return actividadList;
+    public Date getProFechainireal() {
+        return proFechainireal;
     }
 
-    public void setActividadList(List<Actividad> actividadList) {
-        this.actividadList = actividadList;
+    public void setProFechainireal(Date proFechainireal) {
+        this.proFechainireal = proFechainireal;
     }
 
-    @XmlTransient
-    public List<Seguimiento> getSeguimientoList() {
-        return seguimientoList;
+    public Date getProFechafinreal() {
+        return proFechafinreal;
     }
 
-    public void setSeguimientoList(List<Seguimiento> seguimientoList) {
-        this.seguimientoList = seguimientoList;
+    public void setProFechafinreal(Date proFechafinreal) {
+        this.proFechafinreal = proFechafinreal;
     }
 
     @XmlTransient
-    public List<AdminiPorProyecto> getAdminiPorProyectoList() {
-        return adminiPorProyectoList;
+    public List<AdminPorPro> getAdminPorProList() {
+        return adminPorProList;
     }
 
-    public void setAdminiPorProyectoList(List<AdminiPorProyecto> adminiPorProyectoList) {
-        this.adminiPorProyectoList = adminiPorProyectoList;
+    public void setAdminPorProList(List<AdminPorPro> adminPorProList) {
+        this.adminPorProList = adminPorProList;
     }
 
     @Override
@@ -271,7 +291,7 @@ public class Proyecto implements Serializable {
 
     @Override
     public String toString() {
-        return "ws.admin.ac.cr.model.Proyecto[ proId=" + proId + " ]";
+        return "cr.ac.una.unaplanillaws2.controller.model2.Proyecto[ proId=" + proId + " ]";
     }
-    
+
 }

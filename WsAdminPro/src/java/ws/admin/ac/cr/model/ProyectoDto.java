@@ -6,6 +6,7 @@
 package ws.admin.ac.cr.model;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Carlos Olivares
  */
 @XmlRootElement(name = "ProyectoDto")
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 public class ProyectoDto {
     private Long proId;
     private String proNombre;
@@ -25,6 +26,8 @@ public class ProyectoDto {
     private String proCorreopatrocinador;
     private String proCorreousuario;
     private String proCorreotecnico;
+    private LocalDate proFechainireal;
+    private LocalDate proFechafinreal;
     private LocalDate proFechainicio;
     private LocalDate proFechafinal;
     private String proEstado;
@@ -32,8 +35,22 @@ public class ProyectoDto {
 
     public ProyectoDto() {
     }
-    //Rellenar datos
+
     public ProyectoDto(Proyecto proyecto) {
+        this.proCorreopatrocinador = proyecto.getProCorreopatrocinador();
+        this.proCorreotecnico = proyecto.getProCorreotecnico();
+        this.proCorreousuario = proyecto.getProCorreousuario();
+        this.proEstado = proyecto.getProEstado();
+        this.proFechafinreal = proyecto.getProFechafinreal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        this.proFechainireal = proyecto.getProFechainireal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        this.proFechainicio = proyecto.getProFechainicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        this.proFechafinal = proyecto.getProFechafinal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        this.proId = proyecto.getProId();
+        this.proLidertecnico = proyecto.getProLidertecnico();
+        this.proLiderusuario = proyecto.getProLiderusuario();
+        this.proNombre = proyecto.getProNombre();
+        this.proPatrocinador = proyecto.getProPatrocinador();
+        this.proVersion = proyecto.getProVersion();
     }
 
     public Long getProId() {
@@ -100,6 +117,30 @@ public class ProyectoDto {
         this.proCorreotecnico = proCorreotecnico;
     }
 
+    public LocalDate getProFechainireal() {
+        return proFechainireal;
+    }
+
+    public void setProFechainireal(LocalDate proFechainireal) {
+        this.proFechainireal = proFechainireal;
+    }
+
+    public LocalDate getProFechafinreal() {
+        return proFechafinreal;
+    }
+
+    public void setProFechafinreal(LocalDate proFechafinreal) {
+        this.proFechafinreal = proFechafinreal;
+    }
+
+    public String getProEstado() {
+        return proEstado;
+    }
+
+    public void setProEstado(String proEstado) {
+        this.proEstado = proEstado;
+    }
+
     public LocalDate getProFechainicio() {
         return proFechainicio;
     }
@@ -115,15 +156,7 @@ public class ProyectoDto {
     public void setProFechafinal(LocalDate proFechafinal) {
         this.proFechafinal = proFechafinal;
     }
-
-    public String getProEstado() {
-        return proEstado;
-    }
-
-    public void setProEstado(String proEstado) {
-        this.proEstado = proEstado;
-    }
-
+    
     public Long getProVersion() {
         return proVersion;
     }
@@ -131,5 +164,6 @@ public class ProyectoDto {
     public void setProVersion(Long proVersion) {
         this.proVersion = proVersion;
     }
+
     
 }
