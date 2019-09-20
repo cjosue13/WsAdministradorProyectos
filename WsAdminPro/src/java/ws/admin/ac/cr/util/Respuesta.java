@@ -6,12 +6,16 @@
 package ws.admin.ac.cr.util;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author ccarranza
  */
+@XmlRootElement(name = "Respuesta")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Respuesta implements Serializable {
     
     private static final long serialVersionUID = 1L;
@@ -20,10 +24,9 @@ public class Respuesta implements Serializable {
     private CodigoRespuesta codigoRespuesta;   
     private String mensaje;    
     private String mensajeInterno;
-    private HashMap<String, Object> resultado; 
+    private Object resultado; 
 
     public Respuesta() {
-        this.resultado = new HashMap<>();
     }
 
     public Respuesta(Boolean estado, CodigoRespuesta codigoRespuesta, String mensaje, String mensajeInterno) {
@@ -31,7 +34,6 @@ public class Respuesta implements Serializable {
         this.codigoRespuesta = codigoRespuesta;
         this.mensaje = mensaje;
         this.mensajeInterno = mensajeInterno;
-        this.resultado = new HashMap<>();
     }
     
     public Respuesta(Boolean estado, CodigoRespuesta codigoRespuesta, String mensaje, String mensajeInterno, String nombre, Object resultado) {
@@ -39,8 +41,7 @@ public class Respuesta implements Serializable {
         this.codigoRespuesta = codigoRespuesta;
         this.mensaje = mensaje;
         this.mensajeInterno = mensajeInterno;
-        this.resultado = new HashMap<>();
-        this.resultado.put(nombre, resultado);
+        this.resultado = resultado;
     }
 
     public Respuesta(Boolean estado, CodigoRespuesta codigoRespuesta, String mensaje, String mensajeInterno, Object resultado) {
@@ -48,8 +49,7 @@ public class Respuesta implements Serializable {
         this.codigoRespuesta = codigoRespuesta;
         this.mensaje = mensaje;
         this.mensajeInterno = mensajeInterno;
-        this.resultado = new HashMap<>();
-        this.resultado.put("[Objeto]", resultado);
+        this.resultado = resultado;
     }
     
     public Boolean getEstado() {
@@ -84,19 +84,11 @@ public class Respuesta implements Serializable {
         this.mensajeInterno = mensajeInterno;
     }
     
-    public Object getResultado(String nombre) {
-        return resultado.get(nombre);
-    }
-
-    public void setResultado(String nombre, Object resultado) {
-        this.resultado.put(nombre, resultado);
-    }
-    
     public Object getResultado() {
-        return resultado.get("[Objeto]");
+        return resultado;
     }
 
     public void setResultado(Object resultado) {
-        this.resultado.put("[Objeto]", resultado);
+        this.resultado = resultado;
     }
 }

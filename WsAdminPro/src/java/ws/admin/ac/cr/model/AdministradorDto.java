@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Carlos Olivares
  */
 @XmlRootElement(name = "AdministradorDto")
-@XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class AdministradorDto {
     private Long adnId;
     private String adnNombre;

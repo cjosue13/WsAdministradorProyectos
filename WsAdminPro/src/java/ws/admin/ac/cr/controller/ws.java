@@ -45,17 +45,19 @@ public class ws {
     }
 
     @WebMethod(operationName = "getUsuario")
-    public String getUsuario(@WebParam(name = "usuario") String usuario, @WebParam(name = "clave") String clave) {
+    public Respuesta getUsuario(@WebParam(name = "usuario") String usuario, @WebParam(name = "clave") String clave) {
         try {
             Respuesta respuesta = administradorService.validarAdministrador(usuario, clave);
-            if (!respuesta.getEstado()) {
+            return respuesta;
+            /*if (!respuesta.getEstado()) {
                 return String.valueOf(respuesta.getCodigoRespuesta().getValue());
             }
-            //return String.ok((AdministradorDto) respuesta.getResultado("Administrador")).build();
-            return "Usuario guardado exitosamente";
+            //return String.ok((AdministradorDto) respuesta.getResultado("AdministradorDto")).build();
+            return "Usuario guardado exitosamente";*/
         } catch (Exception ex) {
             Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
-            return String.valueOf(CodigoRespuesta.ERROR_INTERNO.getValue());
+            return new Respuesta(Boolean.FALSE, CodigoRespuesta.ERROR_INTERNO, "Error al obtener el Usuario", "getUsuario:"+ex.getMessage());
+            //String.valueOf(CodigoRespuesta.ERROR_INTERNO.getValue());
         }
     }
 
