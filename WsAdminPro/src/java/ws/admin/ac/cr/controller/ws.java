@@ -47,6 +47,7 @@ public class ws {
     @WebMethod(operationName = "getUsuario")
     public Respuesta getUsuario(@WebParam(name = "usuario") String usuario, @WebParam(name = "clave") String clave) {
         try {
+            // Consulto el service del Administrador y devuelvo la respuesta al cliente
             Respuesta respuesta = administradorService.validarAdministrador(usuario, clave);
             return respuesta;
             /*if (!respuesta.getEstado()) {
