@@ -19,6 +19,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -76,12 +77,12 @@ public class Administrador implements Serializable {
     @Basic(optional = false)
     @Column(name = "ADN_ESTADO")
     private String adnEstado;
-    @Basic(optional = false)
-    @Column(name = "ADN_VERSION")
-    private Long adnVersion;
     @OneToMany(mappedBy = "adnId", fetch = FetchType.LAZY)
     private List<AdminiPorProyecto> adminiPorProyectoList;
-
+    @Version
+    @Column(name = "ADN_VERSION")
+    private Long adnVersion;
+    
     public Administrador() {
     }
 
