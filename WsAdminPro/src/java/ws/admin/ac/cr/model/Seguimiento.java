@@ -22,6 +22,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -54,7 +55,7 @@ public class Seguimiento implements Serializable {
     @Basic(optional = false)
     @Column(name = "SEG_AVANCE")
     private Long segAvance;
-    @Basic(optional = false)
+    @Version
     @Column(name = "SEG_VERSION")
     private Long segVersion;
     @JoinColumn(name = "PRO_ID", referencedColumnName = "PRO_ID")

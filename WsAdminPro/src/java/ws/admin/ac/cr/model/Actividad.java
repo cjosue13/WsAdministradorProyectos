@@ -22,6 +22,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -67,7 +68,7 @@ public class Actividad implements Serializable {
     @Basic(optional = false)
     @Column(name = "ACT_ESTADO")
     private String actEstado;
-    @Basic(optional = false)
+    @Version
     @Column(name = "ACT_VERSION")
     private Long actVersion;
     @JoinColumn(name = "PRO_ID", referencedColumnName = "PRO_ID")

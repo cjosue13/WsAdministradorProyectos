@@ -22,6 +22,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -87,7 +88,7 @@ public class Proyecto implements Serializable {
     @Basic(optional = false)
     @Column(name = "PRO_ESTADO")
     private String proEstado;
-    @Basic(optional = false)
+    @Version
     @Column(name = "PRO_VERSION")
     private Long proVersion;
     @OneToMany(mappedBy = "proId", fetch = FetchType.LAZY)

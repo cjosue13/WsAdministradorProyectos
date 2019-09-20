@@ -19,6 +19,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -46,7 +47,7 @@ public class AdminiPorProyecto implements Serializable {
     @Basic(optional = false)
     @Column(name = "AXP_TIPO")
     private String axpTipo;
-    @Basic(optional = false)
+    @Version
     @Column(name = "AXP_VERSION")
     private Long axpVersion;
     @JoinColumn(name = "ADN_ID", referencedColumnName = "ADN_ID")
