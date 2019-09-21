@@ -80,16 +80,17 @@ public class ws {
     }
 
     @WebMethod(operationName = "eliminarAdministrador")
-    public String EliminarAdministrador(@WebParam(name = "ID") Long ID) {
+    public Respuesta EliminarAdministrador(@WebParam(name = "ID") Long ID) {
         try {
             Respuesta respuesta = administradorService.eliminarAdministrador(ID);
-            if (!respuesta.getEstado()) {
+            return respuesta;
+            /*if (!respuesta.getEstado()) {
                 return respuesta.getMensaje();
             }
-            return respuesta.getMensaje();
+            return respuesta.getMensaje();*/
         } catch (Exception ex) {
             Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
-            return "Error al eliminar el Administrador";
+            return new Respuesta(false,CodigoRespuesta.ERROR_CLIENTE, "Error al eliminar el Administrador", ex.getMessage());
         }
     }
 }

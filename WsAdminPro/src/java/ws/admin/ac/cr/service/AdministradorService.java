@@ -19,6 +19,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import ws.admin.ac.cr.model.Administrador;
 import ws.admin.ac.cr.model.AdministradorDto;
+import ws.admin.ac.cr.util.CampoException;
 import ws.admin.ac.cr.util.CodigoRespuesta;
 import ws.admin.ac.cr.util.Respuesta;
 
@@ -92,10 +93,16 @@ public class AdministradorService {
             }
 
             em.flush();
-
-            return new Respuesta(true, CodigoRespuesta.CORRECTO, "Administrador guardado exitosamente", "", "Administrador", new AdministradorDto(Administrador));
+            
+            return new Respuesta(true, CodigoRespuesta.CORRECTO, "Administrador guardado exitosamente", "", "Administrador", (AdministradorDto) new AdministradorDto(Administrador));
         } catch (Exception ex) {
             LOG.log(Level.SEVERE, "Ocurrio un error al guardar el Administrador.", ex);
+            if(ex.getCause().getCause() != null && ex.getCause().getCause().getClass() == SQLIntegrityConstraintViolationException.class){
+                SQLIntegrityConstraintViolationException sqle = new SQLIntegrityConstraintViolationException(ex.getCause().getCause());
+                return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Ocurrio un error al guardar el Administrador. Ya existe un Administrador con el mismo campo "
+                        + CampoException.getCampo(sqle.getMessage(), "UNA", "ADN")
+                        , "guardarAdministrador " + sqle.getMessage());
+            }
             return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Ocurrio un error al guardar el Administrador.", "guardarAdministrador " + ex.getMessage());
         }
     }
