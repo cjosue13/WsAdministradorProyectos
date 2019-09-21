@@ -11,7 +11,11 @@ import javax.ejb.EJB;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import ws.admin.ac.cr.model.ActividadDto;
+import ws.admin.ac.cr.model.AdminPorProyectoDto;
 import ws.admin.ac.cr.model.AdministradorDto;
+import ws.admin.ac.cr.model.ProyectoDto;
+import ws.admin.ac.cr.model.SeguimientoDto;
 import ws.admin.ac.cr.service.ActividadService;
 import ws.admin.ac.cr.service.AdminiPorProService;
 import ws.admin.ac.cr.service.AdministradorService;
@@ -50,24 +54,6 @@ public class ws {
         }
     }
 
-    /*  @WebMethod(operationName = "getAdministradores")
-    public String getAdministradors() {
-        try {
-            Respuesta respuesta = administradorService.getAdministradors();
-            if (!respuesta.getEstado()) {
-                return String.status(respuesta.getCodigoRespuesta().getValue()).entity(respuesta.getMensaje()).build();
-            }
-            ArrayList<AdministradorDto> AdministradorsDto = (ArrayList<AdministradorDto>) respuesta.getResultado("Administradors");
-
-            return String.ok(new GenericEntity<List<AdministradorDto>>(AdministradorsDto) {
-            }).build();
-
-        } catch (Exception ex) {
-            Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
-            return String.status(CodigoRespuesta.ERROR_INTERNO.getValue()).entity("Error obteniendo el Administrador").build();
-        }
-    }
-     */
     @WebMethod(operationName = "guardarAdministrador")
     public Respuesta guardarAdministrador(@WebParam(name = "Administrador") AdministradorDto Administrador) {
         try {
@@ -84,13 +70,106 @@ public class ws {
         try {
             Respuesta respuesta = administradorService.eliminarAdministrador(ID);
             return respuesta;
-            /*if (!respuesta.getEstado()) {
-                return respuesta.getMensaje();
-            }
-            return respuesta.getMensaje();*/
         } catch (Exception ex) {
             Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
             return new Respuesta(false,CodigoRespuesta.ERROR_CLIENTE, "Error al eliminar el Administrador", ex.getMessage());
         }
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "guardarProyecto")
+    public Respuesta guardarProyecto(@WebParam(name = "proyecto") ProyectoDto proyecto) {
+        //TODO write your implementation code here:
+        try {
+            Respuesta respuesta = proyectoService.guardarProyecto(proyecto);
+            return respuesta;
+        } catch (Exception ex) {
+            Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
+            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Error guardando usuario", ex.getMessage());
+        }
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "eliminarProyecto")
+    public Respuesta eliminarProyecto(@WebParam(name = "ID") Long ID) {
+        //TODO write your implementation code here:
+        return null;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "guardarAdminPorProyecto")
+    public Respuesta guardarAdminPorProyecto(@WebParam(name = "adminPorPro") AdminPorProyectoDto adminPorPro) {
+        //TODO write your implementation code here:
+        try {
+            Respuesta respuesta = adminiPorProService.guardarAdminPorPro(adminPorPro);
+            return respuesta;
+        } catch (Exception ex) {
+            Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
+            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Error guardando usuario", ex.getMessage());
+        }
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "eliminarAdminPorProyecto")
+    public Respuesta eliminarAdminPorProyecto(@WebParam(name = "ID") Long ID) {
+        //TODO write your implementation code here:
+        return null;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "guardarActividad")
+    public Respuesta guardarActividad(@WebParam(name = "actividad") ActividadDto actividad) {
+        //TODO write your implementation code here:
+        try {
+            Respuesta respuesta = actividadService.guardarActividad(actividad);
+            return respuesta;
+        } catch (Exception ex) {
+            Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
+            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Error guardando usuario", ex.getMessage());
+        }
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "elminarActividad")
+    public Respuesta elminarActividad(@WebParam(name = "ID") Long ID) {
+        //TODO write your implementation code here:
+        return null;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "guardarSeguimiento")
+    public Respuesta guardarSeguimiento(@WebParam(name = "seguimiento") SeguimientoDto seguimiento) {
+        //TODO write your implementation code here:
+        try {
+            Respuesta respuesta = seguimientoService.guardarSeguimiento(seguimiento);
+            return respuesta;
+        } catch (Exception ex) {
+            Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
+            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Error guardando usuario", ex.getMessage());
+        }
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "eliminarSeguimiento")
+    public Respuesta eliminarSeguimiento(@WebParam(name = "ID") Long ID) {
+        //TODO write your implementation code here:
+        return null;
+    }
+    
 }
