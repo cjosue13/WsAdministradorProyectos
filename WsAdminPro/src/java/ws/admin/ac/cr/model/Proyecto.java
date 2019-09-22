@@ -6,7 +6,9 @@
 package ws.admin.ac.cr.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -135,11 +137,15 @@ public class Proyecto implements Serializable {
         this.proCorreotecnico = proyecto.getProCorreotecnico();
         this.proCorreousuario = proyecto.getProCorreousuario();
         this.proEstado = proyecto.getProEstado();
-        this.proFechafinreal = Date.from(proyecto.getProFechafinreal().atStartOfDay(ZoneId.systemDefault()).toInstant());
-        this.proFechainireal = Date.from(proyecto.getProFechainireal().atStartOfDay(ZoneId.systemDefault()).toInstant());
+         LocalDate fechFinal = LocalDate.parse(proyecto.getProFechafinal(), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        LocalDate fechFinalReal = LocalDate.parse(proyecto.getProFechafinreal(), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        LocalDate fechIni = LocalDate.parse(proyecto.getProFechainicio(), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        LocalDate fechIniReal = LocalDate.parse(proyecto.getProFechainireal(), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        this.proFechafinreal = Date.from(fechFinalReal.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.proFechainireal = Date.from(fechIniReal.atStartOfDay(ZoneId.systemDefault()).toInstant());
         //Agregar 2 fechas que faltan
-        this.proFechafinal = Date.from(proyecto.getProFechafinal().atStartOfDay(ZoneId.systemDefault()).toInstant());
-        this.proFechainicio = Date.from(proyecto.getProFechainicio().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.proFechafinal = Date.from(fechFinal.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.proFechainicio = Date.from(fechIni.atStartOfDay(ZoneId.systemDefault()).toInstant());
         this.proLidertecnico = proyecto.getProLidertecnico();
         this.proLiderusuario = proyecto.getProLiderusuario();
         this.proNombre = proyecto.getProNombre();

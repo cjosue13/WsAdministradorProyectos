@@ -19,19 +19,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 public class SeguimientoDto {
     private Long segId;
-    private LocalDate segFecha;
+    private String segFecha;
     private Integer segAvance;
     private Long segVersion;
     private ProyectoDto segProyecto;
 
     public SeguimientoDto() {
     }
+
+    
     //Rellenar datos
     public SeguimientoDto(Seguimiento seguimiento) {
         this.segAvance = seguimiento.getSegAvance();
         this.segId = seguimiento.getSegId();
         this.segProyecto = new ProyectoDto(seguimiento.getSegProyecto());
-        this.segFecha = seguimiento.getSegFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        this.segFecha = seguimiento.getSegFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
         this.segVersion = seguimiento.getSegVersion();
         
     }
@@ -44,11 +46,11 @@ public class SeguimientoDto {
         this.segId = segId;
     }
 
-    public LocalDate getSegFecha() {
+    public String getSegFecha() {
         return segFecha;
     }
 
-    public void setSegFecha(LocalDate segFecha) {
+    public void setSegFecha(String segFecha) {
         this.segFecha = segFecha;
     }
 

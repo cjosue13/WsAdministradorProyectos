@@ -6,7 +6,9 @@
 package ws.admin.ac.cr.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -85,8 +87,9 @@ public class Seguimiento implements Serializable {
     public void actualizar(SeguimientoDto seguimiento) {
         this.segAvance = seguimiento.getSegAvance();
         this.segId = seguimiento.getSegId();
+        LocalDate fecha = LocalDate.parse(seguimiento.getSegFecha(), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
         this.segProyecto = new Proyecto(seguimiento.getSegProyecto());
-        this.segFecha = Date.from(seguimiento.getSegFecha().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.segFecha = Date.from(fecha.atStartOfDay(ZoneId.systemDefault()).toInstant());
         this.segVersion = seguimiento.getSegVersion();
     }
 

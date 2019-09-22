@@ -5,8 +5,7 @@
  */
 package ws.admin.ac.cr.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -29,6 +28,20 @@ public class AdministradorDto {
     private String adnEstado;
     private Long adnVersion;
 
+    public AdministradorDto(Long adnId, String adnNombre, String adnPapellido, String adnSapellido, String adnCedula, String adnCorreo, String adnUsuario, String adnContrasena, String adnEstado, Long adnVersion) {
+        this.adnId = adnId;
+        this.adnNombre = adnNombre;
+        this.adnPapellido = adnPapellido;
+        this.adnSapellido = adnSapellido;
+        this.adnCedula = adnCedula;
+        this.adnCorreo = adnCorreo;
+        this.adnUsuario = adnUsuario;
+        this.adnContrasena = adnContrasena;
+        this.adnEstado = adnEstado;
+        this.adnVersion = adnVersion;
+    }
+
+    
     public AdministradorDto() {
     }
     

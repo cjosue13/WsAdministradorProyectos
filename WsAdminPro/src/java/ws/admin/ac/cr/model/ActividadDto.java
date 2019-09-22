@@ -22,10 +22,10 @@ public class ActividadDto {
     private Long actId;
     private String actDescripcion;
     private String actEncargado;
-    private LocalDate actFechainireal;
-    private LocalDate actFechafinreal;
-    private LocalDate actFechainicio;
-    private LocalDate actFechafinal;
+    private String actFechainireal;
+    private String actFechafinreal;
+    private String actFechainicio;
+    private String actFechafinal;
     private String actEstado;
     private Integer actNumorden;
     private Long actVersion;
@@ -33,15 +33,16 @@ public class ActividadDto {
 
     public ActividadDto() {
     }
-    //Rellenar datos
+
+    
     public ActividadDto(Actividad actividad) {
         this.actDescripcion = actividad.getActDescripcion();
         this.actEncargado = actividad.getActEncargado();
         this.actEstado = actividad.getActEstado();
-        this.actFechafinreal = actividad.getActFechafinreal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        this.actFechainireal = actividad.getActFechainireal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        this.actFechainicio = actividad.getActFechainicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        this.actFechafinal = actividad.getActFechafinal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        this.actFechafinreal = actividad.getActFechafinreal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
+        this.actFechainireal = actividad.getActFechainireal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
+        this.actFechainicio = actividad.getActFechainicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
+        this.actFechafinal = actividad.getActFechafinal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
         this.actId = actividad.getActId();
         this.actNumorden = actividad.getActNumorden();
         this.actProyecto = new ProyectoDto(actividad.getActProyecto());
@@ -72,19 +73,19 @@ public class ActividadDto {
         this.actEncargado = actEncargado;
     }
 
-    public LocalDate getActFechainireal() {
+    public String getActFechainireal() {
         return actFechainireal;
     }
 
-    public void setActFechainireal(LocalDate actFechainireal) {
+    public void setActFechainireal(String actFechainireal) {
         this.actFechainireal = actFechainireal;
     }
 
-    public LocalDate getActFechafinreal() {
+    public String getActFechafinreal() {
         return actFechafinreal;
     }
 
-    public void setActFechafinreal(LocalDate actFechafinreal) {
+    public void setActFechafinreal(String actFechafinreal) {
         this.actFechafinreal = actFechafinreal;
     }
 
@@ -120,19 +121,19 @@ public class ActividadDto {
         this.actProyecto = actProyecto;
     }
 
-    public LocalDate getActFechainicio() {
+    public String getActFechainicio() {
         return actFechainicio;
     }
 
-    public void setActFechainicio(LocalDate actFechainicio) {
+    public void setActFechainicio(String actFechainicio) {
         this.actFechainicio = actFechainicio;
     }
 
-    public LocalDate getActFechafinal() {
+    public String getActFechafinal() {
         return actFechafinal;
     }
 
-    public void setActFechafinal(LocalDate actFechafinal) {
+    public void setActFechafinal(String actFechafinal) {
         this.actFechafinal = actFechafinal;
     }
    

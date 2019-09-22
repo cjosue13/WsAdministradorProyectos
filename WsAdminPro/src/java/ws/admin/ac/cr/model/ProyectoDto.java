@@ -26,25 +26,26 @@ public class ProyectoDto {
     private String proCorreopatrocinador;
     private String proCorreousuario;
     private String proCorreotecnico;
-    private LocalDate proFechainireal;
-    private LocalDate proFechafinreal;
-    private LocalDate proFechainicio;
-    private LocalDate proFechafinal;
+    private String proFechainireal;
+    private String proFechafinreal;
+    private String proFechainicio;
+    private String proFechafinal;
     private String proEstado;
     private Long proVersion;
 
     public ProyectoDto() {
     }
 
+    
     public ProyectoDto(Proyecto proyecto) {
         this.proCorreopatrocinador = proyecto.getProCorreopatrocinador();
         this.proCorreotecnico = proyecto.getProCorreotecnico();
         this.proCorreousuario = proyecto.getProCorreousuario();
         this.proEstado = proyecto.getProEstado();
-        this.proFechafinreal = proyecto.getProFechafinreal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        this.proFechainireal = proyecto.getProFechainireal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        this.proFechainicio = proyecto.getProFechainicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        this.proFechafinal = proyecto.getProFechafinal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        this.proFechafinreal = proyecto.getProFechafinreal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
+        this.proFechainireal = proyecto.getProFechainireal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
+        this.proFechainicio = proyecto.getProFechainicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
+        this.proFechafinal = proyecto.getProFechafinal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
         this.proId = proyecto.getProId();
         this.proLidertecnico = proyecto.getProLidertecnico();
         this.proLiderusuario = proyecto.getProLiderusuario();
@@ -117,19 +118,19 @@ public class ProyectoDto {
         this.proCorreotecnico = proCorreotecnico;
     }
 
-    public LocalDate getProFechainireal() {
+    public String getProFechainireal() {
         return proFechainireal;
     }
 
-    public void setProFechainireal(LocalDate proFechainireal) {
+    public void setProFechainireal(String proFechainireal) {
         this.proFechainireal = proFechainireal;
     }
 
-    public LocalDate getProFechafinreal() {
+    public String getProFechafinreal() {
         return proFechafinreal;
     }
 
-    public void setProFechafinreal(LocalDate proFechafinreal) {
+    public void setProFechafinreal(String proFechafinreal) {
         this.proFechafinreal = proFechafinreal;
     }
 
@@ -141,19 +142,19 @@ public class ProyectoDto {
         this.proEstado = proEstado;
     }
 
-    public LocalDate getProFechainicio() {
+    public String getProFechainicio() {
         return proFechainicio;
     }
 
-    public void setProFechainicio(LocalDate proFechainicio) {
+    public void setProFechainicio(String proFechainicio) {
         this.proFechainicio = proFechainicio;
     }
 
-    public LocalDate getProFechafinal() {
+    public String getProFechafinal() {
         return proFechafinal;
     }
 
-    public void setProFechafinal(LocalDate proFechafinal) {
+    public void setProFechafinal(String proFechafinal) {
         this.proFechafinal = proFechafinal;
     }
     

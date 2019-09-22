@@ -24,6 +24,15 @@ public class AdminPorProyectoDto {
     
     public AdminPorProyectoDto() {
     }
+
+    public AdminPorProyectoDto(Long axpId, String axpTipo, Long axpVersion, AdministradorDto axpAdministrador, ProyectoDto axpProyecto) {
+        this.axpId = axpId;
+        this.axpTipo = axpTipo;
+        this.axpVersion = axpVersion;
+        this.axpAdministrador = axpAdministrador;
+        this.axpProyecto = axpProyecto;
+    }
+    
     //Rellenar datos
     public AdminPorProyectoDto(AdminPorPro adminPro) {
         this.axpId = adminPro.getAxpId();

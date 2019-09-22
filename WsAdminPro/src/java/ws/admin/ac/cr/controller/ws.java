@@ -78,6 +78,8 @@ public class ws {
 
     /**
      * Web service operation
+     * @param proyecto
+     * @return 
      */
     @WebMethod(operationName = "guardarProyecto")
     public Respuesta guardarProyecto(@WebParam(name = "proyecto") ProyectoDto proyecto) {
@@ -87,21 +89,30 @@ public class ws {
             return respuesta;
         } catch (Exception ex) {
             Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
-            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Error guardando usuario", ex.getMessage());
+            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Error guardando Proyecto", ex.getMessage());
         }
     }
 
     /**
      * Web service operation
+     * @param ID
+     * @return 
      */
     @WebMethod(operationName = "eliminarProyecto")
     public Respuesta eliminarProyecto(@WebParam(name = "ID") Long ID) {
-        //TODO write your implementation code here:
-        return null;
+       try {
+            Respuesta respuesta = proyectoService.eliminarProyecto(ID);
+            return respuesta;
+        } catch (Exception ex) {
+            Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
+            return new Respuesta(false,CodigoRespuesta.ERROR_CLIENTE, "Error al eliminar el proyecto.", ex.getMessage());
+        }
     }
 
     /**
      * Web service operation
+     * @param adminPorPro
+     * @return 
      */
     @WebMethod(operationName = "guardarAdminPorProyecto")
     public Respuesta guardarAdminPorProyecto(@WebParam(name = "adminPorPro") AdminPorProyectoDto adminPorPro) {
@@ -111,21 +122,30 @@ public class ws {
             return respuesta;
         } catch (Exception ex) {
             Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
-            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Error guardando usuario", ex.getMessage());
+            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Error guardando administrador por Proyecto.", ex.getMessage());
         }
     }
 
     /**
      * Web service operation
+     * @param ID
+     * @return 
      */
     @WebMethod(operationName = "eliminarAdminPorProyecto")
     public Respuesta eliminarAdminPorProyecto(@WebParam(name = "ID") Long ID) {
-        //TODO write your implementation code here:
-        return null;
+        try {
+            Respuesta respuesta = adminiPorProService.eliminarAdminPorPro(ID);
+            return respuesta;
+        } catch (Exception ex) {
+            Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
+            return new Respuesta(false,CodigoRespuesta.ERROR_CLIENTE, "Error al eliminar administrador por Proyecto.", ex.getMessage());
+        }
     }
 
     /**
      * Web service operation
+     * @param actividad
+     * @return 
      */
     @WebMethod(operationName = "guardarActividad")
     public Respuesta guardarActividad(@WebParam(name = "actividad") ActividadDto actividad) {
@@ -135,21 +155,31 @@ public class ws {
             return respuesta;
         } catch (Exception ex) {
             Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
-            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Error guardando usuario", ex.getMessage());
+            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Error guardando la Actividad", ex.getMessage());
+            
         }
     }
 
     /**
      * Web service operation
+     * @param ID
+     * @return 
      */
-    @WebMethod(operationName = "elminarActividad")
+   /* @WebMethod(operationName = "elminarActividad")
     public Respuesta elminarActividad(@WebParam(name = "ID") Long ID) {
-        //TODO write your implementation code here:
-        return null;
-    }
+        try {
+            Respuesta respuesta = actividadService.eliminarActividad(ID);
+            return respuesta;
+        } catch (Exception ex) {
+            Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
+            return new Respuesta(false,CodigoRespuesta.ERROR_CLIENTE, "Error al eliminar la Actividad", ex.getMessage());
+        }
+    }*/
 
     /**
      * Web service operation
+     * @param seguimiento
+     * @return 
      */
     @WebMethod(operationName = "guardarSeguimiento")
     public Respuesta guardarSeguimiento(@WebParam(name = "seguimiento") SeguimientoDto seguimiento) {
@@ -159,17 +189,39 @@ public class ws {
             return respuesta;
         } catch (Exception ex) {
             Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
-            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Error guardando usuario", ex.getMessage());
+            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Error guardando el Seguimiento", ex.getMessage());
+        }
+    }
+
+    /**
+     * Web service operation
+     * @param ID
+     * @return 
+     */
+    @WebMethod(operationName = "eliminarSeguimiento")
+    public Respuesta eliminarSeguimiento(@WebParam(name = "ID") Long ID) {
+        try {
+            Respuesta respuesta = seguimientoService.eliminarSeguimiento(ID);
+            return respuesta;
+        } catch (Exception ex) {
+            Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
+            return new Respuesta(false,CodigoRespuesta.ERROR_CLIENTE, "Error al eliminar el seguimiento", ex.getMessage());
         }
     }
 
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "eliminarSeguimiento")
-    public Respuesta eliminarSeguimiento(@WebParam(name = "ID") Long ID) {
+    @WebMethod(operationName = "eliminarActividad")
+    public Respuesta eliminarActividad(@WebParam(name = "ID") Long ID) {
         //TODO write your implementation code here:
-        return null;
+        try {
+            Respuesta respuesta = actividadService.eliminarActividad(ID);
+            return respuesta;
+        } catch (Exception ex) {
+            Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
+            return new Respuesta(false,CodigoRespuesta.ERROR_CLIENTE, "Error al eliminar la Actividad", ex.getMessage());
+        }
     }
     
 }

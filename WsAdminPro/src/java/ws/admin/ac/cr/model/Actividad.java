@@ -6,7 +6,9 @@
 package ws.admin.ac.cr.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -104,25 +106,34 @@ public class Actividad implements Serializable {
         this.actVersion = actVersion;
         this.actNumorden = actNumorden;
     }
+
     public Actividad(ActividadDto actividad) {
         this.actId = actividad.getActId();
         this.actualizar(actividad);
     }
+
     //Rellenar datos
-    public void actualizar(ActividadDto actividad){
+    public void actualizar(ActividadDto actividad) {
         this.actDescripcion = actividad.getActDescripcion();
         this.actDescripcion = actividad.getActDescripcion();
         this.actEncargado = actividad.getActEncargado();
         this.actEstado = actividad.getActEstado();
-        this.actFechafinreal = Date.from(actividad.getActFechafinreal().atStartOfDay(ZoneId.systemDefault()).toInstant());
-        this.actFechainireal = Date.from(actividad.getActFechainireal().atStartOfDay(ZoneId.systemDefault()).toInstant());
-        this.actFechafinal = Date.from(actividad.getActFechafinal().atStartOfDay(ZoneId.systemDefault()).toInstant());
-        this.actFechainicio = Date.from(actividad.getActFechainicio().atStartOfDay(ZoneId.systemDefault()).toInstant());
-        this.actNumorden = actividad.getActNumorden();
+
+        LocalDate fechFinal = LocalDate.parse(actividad.getActFechafinal(), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        LocalDate fechFinalReal = LocalDate.parse(actividad.getActFechafinreal(), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        LocalDate fechIni = LocalDate.parse(actividad.getActFechainicio(), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        LocalDate fechIniReal = LocalDate.parse(actividad.getActFechainireal(), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        this.actFechafinreal = Date.from(fechFinalReal.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.actFechainireal = Date.from(fechIniReal.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.actFechafinal = Date.from(fechFinal.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.actFechainicio = Date.from(fechIni.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        
+                 this.actNumorden = actividad.getActNumorden();
         this.actProyecto = new Proyecto(actividad.getActProyecto());
         this.actVersion = actividad.getActVersion();
-        
+
     }
+
     public Long getActId() {
         return actId;
     }
@@ -235,5 +246,5 @@ public class Actividad implements Serializable {
     public String toString() {
         return "cr.ac.una.unaplanillaws2.controller.model2.Actividad[ actId=" + actId + " ]";
     }
-    
+
 }
