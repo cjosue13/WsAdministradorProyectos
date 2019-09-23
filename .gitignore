@@ -4,3 +4,8 @@ WsAdminPro/nbproject/private/private.properties
 *.properties
 *.xml
 *.properties
+*.class
+WsAdminPro/build/web/WEB-INF/classes/.netbeans_automatic_build
+*.properties
+WsAdminPro/build/web/WEB-INF/classes/.netbeans_update_resources
+*.properties
