@@ -211,6 +211,8 @@ public class ws {
 
     /**
      * Web service operation
+     * @param ID
+     * @return 
      */
     @WebMethod(operationName = "eliminarActividad")
     public Respuesta eliminarActividad(@WebParam(name = "ID") Long ID) {
