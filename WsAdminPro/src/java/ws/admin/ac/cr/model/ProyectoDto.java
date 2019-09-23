@@ -5,7 +5,6 @@
  */
 package ws.admin.ac.cr.model;
 
-import java.time.LocalDate;
 import java.time.ZoneId;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

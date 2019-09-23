@@ -127,8 +127,8 @@ public class Actividad implements Serializable {
         this.actFechainireal = Date.from(fechIniReal.atStartOfDay(ZoneId.systemDefault()).toInstant());
         this.actFechafinal = Date.from(fechFinal.atStartOfDay(ZoneId.systemDefault()).toInstant());
         this.actFechainicio = Date.from(fechIni.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        
-                 this.actNumorden = actividad.getActNumorden();
+
+        this.actNumorden = actividad.getActNumorden();
         this.actProyecto = new Proyecto(actividad.getActProyecto());
         this.actVersion = actividad.getActVersion();
 
