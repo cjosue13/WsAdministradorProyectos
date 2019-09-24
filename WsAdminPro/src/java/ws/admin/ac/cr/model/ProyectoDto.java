@@ -59,6 +59,7 @@ public class ProyectoDto {
         this.proLiderusuario = proyecto.getProLiderusuario();
         this.proNombre = proyecto.getProNombre();
         this.proPatrocinador = proyecto.getProPatrocinador();
+        //this.proAdmin = new AdministradorDto(proyecto.getProAdministrador());
         this.proVersion = proyecto.getProVersion();
         setActividadesFromDB(proyecto.getActividadList());
         setSeguimientosFromDB(proyecto.getSeguimientoList());
