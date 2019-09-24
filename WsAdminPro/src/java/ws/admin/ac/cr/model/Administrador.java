@@ -23,6 +23,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+
 /**
  *
  * @author Carlos Olivares
@@ -80,8 +81,8 @@ public class Administrador implements Serializable {
     @Basic(optional = false)
     @Column(name = "ADN_VERSION")
     private Long adnVersion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "axpAdministrador", fetch = FetchType.LAZY)
-    private List<AdminPorPro> adminPorProList;
+    @OneToMany(mappedBy = "proAdministrador", fetch = FetchType.LAZY)
+    private List<Proyecto> proyectoList;
 
     public Administrador() {
     }
@@ -197,15 +198,15 @@ public class Administrador implements Serializable {
     public void setAdnVersion(Long adnVersion) {
         this.adnVersion = adnVersion;
     }
-
-    @XmlTransient
-    public List<AdminPorPro> getAdminPorProList() {
-        return adminPorProList;
+    
+    public List<Proyecto> getProyectoList() {
+        return proyectoList;
     }
 
-    public void setAdminPorProList(List<AdminPorPro> adminPorProList) {
-        this.adminPorProList = adminPorProList;
+    public void setProyectoList(List<Proyecto> proyectoList) {
+        this.proyectoList = proyectoList;
     }
+    
 
     @Override
     public int hashCode() {

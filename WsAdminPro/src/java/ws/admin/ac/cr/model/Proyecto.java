@@ -19,6 +19,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -102,8 +104,13 @@ public class Proyecto implements Serializable {
     @Column(name = "PRO_FECHAFINREAL")
     @Temporal(TemporalType.TIMESTAMP)
     private Date proFechafinreal;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "axpProyecto", fetch = FetchType.LAZY)
-    private List<AdminPorPro> adminPorProList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "actProyecto", fetch = FetchType.LAZY)
+    private List<Actividad> actividadList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "segProyecto", fetch = FetchType.LAZY)
+    private List<Seguimiento> seguimientoList;
+    @JoinColumn(name = "PRO_ADMINISTRADOR", referencedColumnName = "ADN_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Administrador proAdministrador;
 
     public Proyecto() {
     }
@@ -151,6 +158,7 @@ public class Proyecto implements Serializable {
         this.proNombre = proyecto.getProNombre();
         this.proPatrocinador = proyecto.getProPatrocinador();
         this.proVersion = proyecto.getProVersion();
+        this.proAdministrador = new Administrador(proyecto.getProAdmin());
 
     }
 
@@ -266,15 +274,31 @@ public class Proyecto implements Serializable {
         this.proFechafinreal = proFechafinreal;
     }
 
-    @XmlTransient
-    public List<AdminPorPro> getAdminPorProList() {
-        return adminPorProList;
+    public List<Actividad> getActividadList() {
+        return actividadList;
     }
 
-    public void setAdminPorProList(List<AdminPorPro> adminPorProList) {
-        this.adminPorProList = adminPorProList;
+    public void setActividadList(List<Actividad> actividadList) {
+        this.actividadList = actividadList;
     }
 
+    public List<Seguimiento> getSeguimientoList() {
+        return seguimientoList;
+    }
+
+    public void setSeguimientoList(List<Seguimiento> seguimientoList) {
+        this.seguimientoList = seguimientoList;
+    }
+
+    public Administrador getProAdministrador() {
+        return proAdministrador;
+    }
+
+    public void setProAdministrador(Administrador proAdministrador) {
+        this.proAdministrador = proAdministrador;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 0;

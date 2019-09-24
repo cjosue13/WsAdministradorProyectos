@@ -30,6 +30,7 @@ public class ProyectoDto {
     private String proFechainicio;
     private String proFechafinal;
     private String proEstado;
+    private AdministradorDto proAdmin;
     private Long proVersion;
 
     public ProyectoDto() {
@@ -50,6 +51,7 @@ public class ProyectoDto {
         this.proLiderusuario = proyecto.getProLiderusuario();
         this.proNombre = proyecto.getProNombre();
         this.proPatrocinador = proyecto.getProPatrocinador();
+        this.proAdmin = new AdministradorDto(proyecto.getProAdministrador());
         this.proVersion = proyecto.getProVersion();
     }
 
@@ -165,5 +167,13 @@ public class ProyectoDto {
         this.proVersion = proVersion;
     }
 
+    public AdministradorDto getProAdmin() {
+        return proAdmin;
+    }
+
+    public void setProAdmin(AdministradorDto proAdmin) {
+        this.proAdmin = proAdmin;
+    }
+    
     
 }

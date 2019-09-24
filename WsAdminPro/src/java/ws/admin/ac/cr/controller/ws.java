@@ -12,12 +12,10 @@ import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import ws.admin.ac.cr.model.ActividadDto;
-import ws.admin.ac.cr.model.AdminPorProyectoDto;
 import ws.admin.ac.cr.model.AdministradorDto;
 import ws.admin.ac.cr.model.ProyectoDto;
 import ws.admin.ac.cr.model.SeguimientoDto;
 import ws.admin.ac.cr.service.ActividadService;
-import ws.admin.ac.cr.service.AdminiPorProService;
 import ws.admin.ac.cr.service.AdministradorService;
 import ws.admin.ac.cr.service.ProyectoService;
 import ws.admin.ac.cr.service.SeguimientoService;
@@ -33,8 +31,6 @@ public class ws {
 
     @EJB
     ActividadService actividadService;
-    @EJB
-    AdminiPorProService adminiPorProService;
     @EJB
     AdministradorService administradorService;
     @EJB
@@ -114,33 +110,7 @@ public class ws {
      * @param adminPorPro
      * @return 
      */
-    @WebMethod(operationName = "guardarAdminPorProyecto")
-    public Respuesta guardarAdminPorProyecto(@WebParam(name = "adminPorPro") AdminPorProyectoDto adminPorPro) {
-        //TODO write your implementation code here:
-        try {
-            Respuesta respuesta = adminiPorProService.guardarAdminPorPro(adminPorPro);
-            return respuesta;
-        } catch (Exception ex) {
-            Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
-            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Error guardando administrador por Proyecto.", ex.getMessage());
-        }
-    }
-
-    /**
-     * Web service operation
-     * @param ID
-     * @return 
-     */
-    @WebMethod(operationName = "eliminarAdminPorProyecto")
-    public Respuesta eliminarAdminPorProyecto(@WebParam(name = "ID") Long ID) {
-        try {
-            Respuesta respuesta = adminiPorProService.eliminarAdminPorPro(ID);
-            return respuesta;
-        } catch (Exception ex) {
-            Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
-            return new Respuesta(false,CodigoRespuesta.ERROR_CLIENTE, "Error al eliminar administrador por Proyecto.", ex.getMessage());
-        }
-    }
+  
 
     /**
      * Web service operation

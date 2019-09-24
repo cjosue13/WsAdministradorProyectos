@@ -6,6 +6,8 @@
 package ws.admin.ac.cr.model;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -27,6 +29,7 @@ public class AdministradorDto {
     private String adnContrasena;
     private String adnEstado;
     private Long adnVersion;
+    private List <ProyectoDto> proyectos;
 
     public AdministradorDto(Long adnId, String adnNombre, String adnPapellido, String adnSapellido, String adnCedula, String adnCorreo, String adnUsuario, String adnContrasena, String adnEstado, Long adnVersion) {
         this.adnId = adnId;
@@ -56,6 +59,15 @@ public class AdministradorDto {
         this.adnSapellido = admin.getAdnSapellido();
         this.adnUsuario = admin.getAdnUsuario();
         this.adnVersion = admin.getAdnVersion();
+        if(admin.getProyectoList()!=null && !admin.getProyectoList().isEmpty()){
+            this.proyectos = new ArrayList<>();
+            admin.getProyectoList().stream().forEach(x->{
+                this.proyectos.add(new ProyectoDto(x));
+            });
+        }
+        else{
+            this.proyectos = new ArrayList<>();
+        }
     }
 
     public Long getAdnId() {
@@ -137,5 +149,14 @@ public class AdministradorDto {
     public void setAdnVersion(Long adnVersion) {
         this.adnVersion = adnVersion;
     }
+
+    public List<ProyectoDto> getProyectos() {
+        return proyectos;
+    }
+
+    public void setProyectos(List<ProyectoDto> proyectos) {
+        this.proyectos = proyectos;
+    }
+    
     
 }
