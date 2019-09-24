@@ -61,9 +61,11 @@ public class AdministradorDto {
         this.adnVersion = admin.getAdnVersion();
         if(admin.getProyectoList()!=null && !admin.getProyectoList().isEmpty()){
             this.proyectos = new ArrayList<>();
-            admin.getProyectoList().stream().forEach(x->{
-                this.proyectos.add(new ProyectoDto(x));
-            });
+            
+            for(Proyecto pro :admin.getProyectoList()){
+                this.proyectos.add(new ProyectoDto(pro));
+            }
+            System.out.println(this.proyectos.size());
         }
         else{
             this.proyectos = new ArrayList<>();
