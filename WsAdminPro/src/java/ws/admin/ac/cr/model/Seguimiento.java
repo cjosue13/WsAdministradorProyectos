@@ -88,7 +88,7 @@ public class Seguimiento implements Serializable {
         this.segAvance = seguimiento.getSegAvance();
         this.segId = seguimiento.getSegId();
         LocalDate fecha = LocalDate.parse(seguimiento.getSegFecha(), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-        this.segProyecto = new Proyecto(seguimiento.getSegProyecto());
+        //this.segProyecto = new Proyecto(seguimiento.getSegProyecto());
         this.segFecha = Date.from(fecha.atStartOfDay(ZoneId.systemDefault()).toInstant());
         this.segVersion = seguimiento.getSegVersion();
     }

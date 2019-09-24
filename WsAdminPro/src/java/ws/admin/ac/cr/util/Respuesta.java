@@ -24,7 +24,7 @@ public class Respuesta implements Serializable {
     private CodigoRespuesta codigoRespuesta;   
     private String mensaje;    
     private String mensajeInterno;
-    private Object resultado; 
+    private Object resultado;
 
     public Respuesta() {
     }

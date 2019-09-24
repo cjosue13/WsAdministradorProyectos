@@ -5,7 +5,10 @@
  */
 package ws.admin.ac.cr.model;
 
+import java.sql.Array;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -32,12 +35,17 @@ public class ProyectoDto {
     private String proEstado;
     private AdministradorDto proAdmin;
     private Long proVersion;
+    
+    private List<ActividadDto> actividades;
+    private List<SeguimientoDto> seguimientos;
 
     public ProyectoDto() {
+        actividades = new ArrayList<>();
+        seguimientos = new ArrayList<>();
     }
 
-    
     public ProyectoDto(Proyecto proyecto) {
+        this();
         this.proCorreopatrocinador = proyecto.getProCorreopatrocinador();
         this.proCorreotecnico = proyecto.getProCorreotecnico();
         this.proCorreousuario = proyecto.getProCorreousuario();
@@ -51,8 +59,9 @@ public class ProyectoDto {
         this.proLiderusuario = proyecto.getProLiderusuario();
         this.proNombre = proyecto.getProNombre();
         this.proPatrocinador = proyecto.getProPatrocinador();
-        this.proAdmin = new AdministradorDto(proyecto.getProAdministrador());
         this.proVersion = proyecto.getProVersion();
+        setActividadesFromDB(proyecto.getActividadList());
+        setSeguimientosFromDB(proyecto.getSeguimientoList());
     }
 
     public Long getProId() {
@@ -174,6 +183,59 @@ public class ProyectoDto {
     public void setProAdmin(AdministradorDto proAdmin) {
         this.proAdmin = proAdmin;
     }
+
+    public List<ActividadDto> getActividades() {
+        return actividades;
+    }
     
+    public List<Actividad> getActividadesToDB(){
+        List<Actividad> acts = new ArrayList<>();
+        for (ActividadDto a : this.actividades){
+            Actividad act = new Actividad(a);
+            acts.add(act);
+        }
+        return acts;
+    }
+
+    public void setActividades(List<ActividadDto> actividades) {
+        this.actividades = actividades;
+    }
+    
+    public void setActividadesFromDB(List<Actividad> actividades){
+        if(actividades != null){
+            for (Actividad a : actividades){
+                ActividadDto act = new ActividadDto(a);
+                //act.setActProyecto(this);
+                this.actividades.add(act);
+            }
+        }
+    }
+
+    public List<SeguimientoDto> getSeguimientos() {
+        return seguimientos;
+    }
+    
+    public List<Seguimiento> getSeguimientoToDB(){
+        List<Seguimiento> segs = new ArrayList<>();
+        for (SeguimientoDto s : this.seguimientos){
+            Seguimiento se = new Seguimiento(s);
+            segs.add(se);
+        }
+        return segs;
+    }
+
+    public void setSeguimientos(List<SeguimientoDto> seguimientos) {
+        this.seguimientos = seguimientos;
+    }
+    
+    public void setSeguimientosFromDB(List<Seguimiento> seguimientos){
+        if(seguimientos != null){
+            for (Seguimiento s : seguimientos){
+                SeguimientoDto seg = new SeguimientoDto(s);
+                //seg.setSegProyecto(this);
+                this.seguimientos.add(seg);
+            }
+        }
+    }
     
 }

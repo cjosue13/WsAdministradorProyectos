@@ -34,7 +34,6 @@ public class ActividadDto {
     public ActividadDto() {
     }
 
-    
     public ActividadDto(Actividad actividad) {
         this.actDescripcion = actividad.getActDescripcion();
         this.actEncargado = actividad.getActEncargado();
@@ -45,7 +44,7 @@ public class ActividadDto {
         this.actFechafinal = actividad.getActFechafinal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
         this.actId = actividad.getActId();
         this.actNumorden = actividad.getActNumorden();
-        this.actProyecto = new ProyectoDto(actividad.getActProyecto());
+        //this.actProyecto = new ProyectoDto(actividad.getActProyecto());
         this.actVersion = actividad.getActVersion();
     }
 

@@ -43,7 +43,9 @@ public class AdministradorService {
             qryActividad.setParameter("adnClave", clave);
             qryActividad.setParameter("adnUsuario", usuario);
             // Obtengo el Administrador desde BD y se lo seteo en el objeto resultado de la rspuesta con sus respectivos parámetros
-            return new Respuesta(true, CodigoRespuesta.CORRECTO, "", "", "AdministradorDto", (AdministradorDto) new AdministradorDto((Administrador) qryActividad.getSingleResult()));
+            Administrador ad = (Administrador) qryActividad.getSingleResult();
+            AdministradorDto admin = new AdministradorDto(ad);
+            return new Respuesta(true, CodigoRespuesta.CORRECTO, "", "", "AdministradorDto", (AdministradorDto) admin);
         } catch (NoResultException ex) {
             return new Respuesta(false, CodigoRespuesta.ERROR_NOENCONTRADO, "No existe un Administrador con las credenciales ingresadas.", "validarAdministrador NoResultException");
         } catch (NonUniqueResultException ex) {

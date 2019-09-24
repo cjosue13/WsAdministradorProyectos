@@ -81,7 +81,7 @@ public class Administrador implements Serializable {
     @Basic(optional = false)
     @Column(name = "ADN_VERSION")
     private Long adnVersion;
-    @OneToMany(mappedBy = "proAdministrador", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "proAdministrador", fetch = FetchType.EAGER)
     private List<Proyecto> proyectoList;
 
     public Administrador() {
@@ -117,6 +117,8 @@ public class Administrador implements Serializable {
         this.adnContrasena = admin.getAdnContrasena();
         this.adnEstado = admin.getAdnEstado();
         this.adnVersion = admin.getAdnVersion();
+        this.proyectoList = admin.getProyectosToDB();
+        for (Proyecto p : this.proyectoList){ p.setProAdministrador(this); }
     }
     
     public Long getAdnId() {

@@ -31,7 +31,12 @@ public class AdministradorDto {
     private Long adnVersion;
     private List <ProyectoDto> proyectos;
 
+    public AdministradorDto() {
+        proyectos = new ArrayList<>();
+    }
+    
     public AdministradorDto(Long adnId, String adnNombre, String adnPapellido, String adnSapellido, String adnCedula, String adnCorreo, String adnUsuario, String adnContrasena, String adnEstado, Long adnVersion) {
+        this();
         this.adnId = adnId;
         this.adnNombre = adnNombre;
         this.adnPapellido = adnPapellido;
@@ -44,11 +49,8 @@ public class AdministradorDto {
         this.adnVersion = adnVersion;
     }
 
-    
-    public AdministradorDto() {
-    }
-    
     public AdministradorDto(Administrador admin) {
+        this();
         this.adnCedula = admin.getAdnCedula();
         this.adnContrasena = admin.getAdnContrasena();
         this.adnCorreo = admin.getAdnCorreo();
@@ -59,15 +61,20 @@ public class AdministradorDto {
         this.adnSapellido = admin.getAdnSapellido();
         this.adnUsuario = admin.getAdnUsuario();
         this.adnVersion = admin.getAdnVersion();
-        if(admin.getProyectoList()!=null && !admin.getProyectoList().isEmpty()){
-            this.proyectos = new ArrayList<>();
-            admin.getProyectoList().stream().forEach(x->{
-                this.proyectos.add(new ProyectoDto(x));
+        if(admin.getProyectoList() != null){
+            for (Proyecto p : admin.getProyectoList()){
+                ProyectoDto proy = new ProyectoDto(p);
+                //proy.setProAdmin(this);
+                this.proyectos.add(proy);
+            }
+        }
+        /*if(admin.getProyectoList()!=null && !admin.getProyectoList().isEmpty()){
+            admin.getProyectoList().forEach(x->{
+                ProyectoDto pro = new ProyectoDto(x);
+                pro.setProAdmin(this);
+                this.proyectos.add(pro);
             });
-        }
-        else{
-            this.proyectos = new ArrayList<>();
-        }
+        }*/
     }
 
     public Long getAdnId() {
@@ -149,14 +156,25 @@ public class AdministradorDto {
     public void setAdnVersion(Long adnVersion) {
         this.adnVersion = adnVersion;
     }
+    
+    public void addProyecto(ProyectoDto p){
+        this.proyectos.add(p);
+    }
 
     public List<ProyectoDto> getProyectos() {
         return proyectos;
+    }
+    
+    public List<Proyecto> getProyectosToDB(){
+        List<Proyecto> prs = new ArrayList<>();
+        for (ProyectoDto p : proyectos){
+            prs.add(new Proyecto(p));
+        }
+        return prs;
     }
 
     public void setProyectos(List<ProyectoDto> proyectos) {
         this.proyectos = proyectos;
     }
-    
     
 }

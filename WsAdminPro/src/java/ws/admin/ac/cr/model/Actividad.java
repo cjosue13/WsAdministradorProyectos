@@ -118,7 +118,6 @@ public class Actividad implements Serializable {
         this.actDescripcion = actividad.getActDescripcion();
         this.actEncargado = actividad.getActEncargado();
         this.actEstado = actividad.getActEstado();
-
         LocalDate fechFinal = LocalDate.parse(actividad.getActFechafinal(), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
         LocalDate fechFinalReal = LocalDate.parse(actividad.getActFechafinreal(), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
         LocalDate fechIni = LocalDate.parse(actividad.getActFechainicio(), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
@@ -127,11 +126,9 @@ public class Actividad implements Serializable {
         this.actFechainireal = Date.from(fechIniReal.atStartOfDay(ZoneId.systemDefault()).toInstant());
         this.actFechafinal = Date.from(fechFinal.atStartOfDay(ZoneId.systemDefault()).toInstant());
         this.actFechainicio = Date.from(fechIni.atStartOfDay(ZoneId.systemDefault()).toInstant());
-
         this.actNumorden = actividad.getActNumorden();
-        this.actProyecto = new Proyecto(actividad.getActProyecto());
+        //this.actProyecto = new Proyecto(actividad.getActProyecto());
         this.actVersion = actividad.getActVersion();
-
     }
 
     public Long getActId() {

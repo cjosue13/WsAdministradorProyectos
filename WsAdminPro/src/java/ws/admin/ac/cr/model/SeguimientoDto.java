@@ -32,7 +32,7 @@ public class SeguimientoDto {
     public SeguimientoDto(Seguimiento seguimiento) {
         this.segAvance = seguimiento.getSegAvance();
         this.segId = seguimiento.getSegId();
-        this.segProyecto = new ProyectoDto(seguimiento.getSegProyecto());
+        //this.segProyecto = new ProyectoDto(seguimiento.getSegProyecto());
         this.segFecha = seguimiento.getSegFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
         this.segVersion = seguimiento.getSegVersion();
         

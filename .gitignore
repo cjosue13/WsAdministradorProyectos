@@ -10,3 +10,7 @@ WsAdminPro/build/web/WEB-INF/classes/.netbeans_automatic_build
 WsAdminPro/build/web/WEB-INF/classes/.netbeans_update_resources
 *.properties
 /UnaPlanillaWs3/target/
+/WsAdminPro/nbproject/private/
+WsAdminPro/nbproject/private/private.properties
+WsAdminPro/nbproject/private/private.properties
+WsAdminPro/nbproject/private/private.properties
