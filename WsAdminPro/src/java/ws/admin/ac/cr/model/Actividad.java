@@ -118,16 +118,16 @@ public class Actividad implements Serializable {
         this.actDescripcion = actividad.getActDescripcion();
         this.actEncargado = actividad.getActEncargado();
         this.actEstado = actividad.getActEstado();
-        LocalDate fechFinal = LocalDate.parse(actividad.getActFechafinal(), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-        LocalDate fechFinalReal = LocalDate.parse(actividad.getActFechafinreal(), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-        LocalDate fechIni = LocalDate.parse(actividad.getActFechainicio(), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-        LocalDate fechIniReal = LocalDate.parse(actividad.getActFechainireal(), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        LocalDate fechFinal = LocalDate.parse(actividad.getActFechafinal(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate fechFinalReal = LocalDate.parse(actividad.getActFechafinreal(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate fechIni = LocalDate.parse(actividad.getActFechainicio(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate fechIniReal = LocalDate.parse(actividad.getActFechainireal(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         this.actFechafinreal = Date.from(fechFinalReal.atStartOfDay(ZoneId.systemDefault()).toInstant());
         this.actFechainireal = Date.from(fechIniReal.atStartOfDay(ZoneId.systemDefault()).toInstant());
         this.actFechafinal = Date.from(fechFinal.atStartOfDay(ZoneId.systemDefault()).toInstant());
         this.actFechainicio = Date.from(fechIni.atStartOfDay(ZoneId.systemDefault()).toInstant());
         this.actNumorden = actividad.getActNumorden();
-        //this.actProyecto = new Proyecto(actividad.getActProyecto());
+       // this.actProyecto = new Proyecto(actividad.getActProyecto());
         this.actVersion = actividad.getActVersion();
     }
 

@@ -19,6 +19,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import ws.admin.ac.cr.model.Actividad;
 import ws.admin.ac.cr.model.ActividadDto;
+import ws.admin.ac.cr.model.Proyecto;
 import ws.admin.ac.cr.util.CodigoRespuesta;
 import ws.admin.ac.cr.util.Respuesta;
 
@@ -29,10 +30,11 @@ import ws.admin.ac.cr.util.Respuesta;
 @Stateless
 @LocalBean
 public class ActividadService {
+
     private static final Logger LOG = Logger.getLogger(ActividadService.class.getName());//imprime el error en payara
     @PersistenceContext(unitName = "WsAdminProPU")
     private EntityManager em;
-    
+
     public Respuesta getActividades() {
         try {
             Query qryActividad = em.createNamedQuery("Actividad.findAll", Actividad.class);
@@ -55,24 +57,32 @@ public class ActividadService {
     public Respuesta guardarActividad(ActividadDto ActividadDto) {
         try {
             Actividad Actividad;
-            if (ActividadDto.getActId() != null && ActividadDto.getActId() > 0) {
-                Actividad = em.find(Actividad.class, ActividadDto.getActId());
+            Proyecto proyecto = em.find(Proyecto.class, ActividadDto.getActProyecto().getProId());
+            if (proyecto != null) {
+                if (ActividadDto.getActId() != null && ActividadDto.getActId() > 0) {
+                    Actividad = em.find(Actividad.class, ActividadDto.getActId());
 
-                if (Actividad == null) {
-                    return new Respuesta(false, CodigoRespuesta.ERROR_NOENCONTRADO, "No se encrontró el Actividad a modificar.", "guardarActividad NoResultException");
+                    if (Actividad == null) {
+                        return new Respuesta(false, CodigoRespuesta.ERROR_NOENCONTRADO, "No se encrontró la Actividad a modificar.", "guardarActividad NoResultException");
+                    }
+
+                    Actividad.actualizar(ActividadDto);
+                    Actividad.setActProyecto(proyecto);
+                    Actividad = em.merge(Actividad);
+
+                } else {
+                    Actividad = new Actividad(ActividadDto);
+                    Actividad.setActProyecto(proyecto);
+                    em.persist(Actividad);
                 }
 
-                Actividad.actualizar(ActividadDto);
-                Actividad = em.merge(Actividad);
-                
+                em.flush();
+
+                return new Respuesta(true, CodigoRespuesta.CORRECTO, "Actividad guardado exitosamente", "", "Actividad", new ActividadDto(Actividad));
             } else {
-                Actividad = new Actividad(ActividadDto);
-                em.persist(Actividad);
+                return new Respuesta(false, CodigoRespuesta.ERROR_NOENCONTRADO, "No se encrontró el Proyecto a modificar.", "guardarActividad NoResultException");
             }
 
-            em.flush();
-
-            return new Respuesta(true, CodigoRespuesta.CORRECTO, "Actividad guardado exitosamente", "", "Actividad", new ActividadDto(Actividad));
         } catch (Exception ex) {
             LOG.log(Level.SEVERE, "Ocurrio un error al guardar el Actividad.", ex);
             return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Ocurrio un error al guardar el Actividad.", "guardarActividad " + ex.getMessage());
