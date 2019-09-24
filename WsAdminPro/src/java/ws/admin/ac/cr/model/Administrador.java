@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Administrador.findAll", query = "SELECT a FROM Administrador a")
-    , @NamedQuery(name = "Administrador.findByAdnId", query = "SELECT a FROM Administrador a WHERE a.adnId = :adnId")
+    , @NamedQuery(name = "Administrador.findByAdnId", query = "SELECT a FROM Administrador a WHERE a.adnId = :adnId", hints = @QueryHint(name = "eclipselink.refresh", value = "true"))
     , @NamedQuery(name = "Administrador.findByAdnNombre", query = "SELECT a FROM Administrador a WHERE a.adnNombre = :adnNombre")
     , @NamedQuery(name = "Administrador.findByAdnPapellido", query = "SELECT a FROM Administrador a WHERE a.adnPapellido = :adnPapellido")
     , @NamedQuery(name = "Administrador.findByAdnSapellido", query = "SELECT a FROM Administrador a WHERE a.adnSapellido = :adnSapellido")

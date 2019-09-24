@@ -162,6 +162,7 @@ public class Proyecto implements Serializable {
         for(Actividad a:this.actividadList)a.setActProyecto(this);
         this.seguimientoList = proyecto.getSeguimientoToDB();
         for(Seguimiento s:this.seguimientoList)s.setSegProyecto(this);
+        this.proAdministrador=new Administrador(proyecto.getProAdmin());
     }
 
     public Long getProId() {

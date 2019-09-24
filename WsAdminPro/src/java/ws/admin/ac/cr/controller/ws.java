@@ -46,7 +46,7 @@ public class ws {
             return respuesta;
         } catch (Exception ex) {
             Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
-            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Error al obtener el Usuario", "getUsuario:"+ex.getMessage());
+            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Error al obtener el Usuario", "getUsuario:" + ex.getMessage());
         }
     }
 
@@ -68,14 +68,32 @@ public class ws {
             return respuesta;
         } catch (Exception ex) {
             Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
-            return new Respuesta(false,CodigoRespuesta.ERROR_CLIENTE, "Error al eliminar el Administrador", ex.getMessage());
+            return new Respuesta(false, CodigoRespuesta.ERROR_CLIENTE, "Error al eliminar el Administrador", ex.getMessage());
         }
     }
 
     /**
      * Web service operation
+     *
+     * @param ID
+     * @return
+     */
+    @WebMethod(operationName = "getAdministrador")
+    public Respuesta getAdministrador(@WebParam(name = "ID") Long ID) {
+        try {
+            Respuesta respuesta = administradorService.getAdministrador(ID);
+            return respuesta;
+        } catch (Exception ex) {
+            Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
+            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Error guardando usuario", ex.getMessage());
+        }
+    }
+
+    /**
+     * Web service operation
+     *
      * @param proyecto
-     * @return 
+     * @return
      */
     @WebMethod(operationName = "guardarProyecto")
     public Respuesta guardarProyecto(@WebParam(name = "proyecto") ProyectoDto proyecto) {
@@ -91,31 +109,32 @@ public class ws {
 
     /**
      * Web service operation
+     *
      * @param ID
-     * @return 
+     * @return
      */
     @WebMethod(operationName = "eliminarProyecto")
     public Respuesta eliminarProyecto(@WebParam(name = "ID") Long ID) {
-       try {
+        try {
             Respuesta respuesta = proyectoService.eliminarProyecto(ID);
             return respuesta;
         } catch (Exception ex) {
             Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
-            return new Respuesta(false,CodigoRespuesta.ERROR_CLIENTE, "Error al eliminar el proyecto.", ex.getMessage());
+            return new Respuesta(false, CodigoRespuesta.ERROR_CLIENTE, "Error al eliminar el proyecto.", ex.getMessage());
         }
     }
 
     /**
      * Web service operation
+     *
      * @param adminPorPro
-     * @return 
+     * @return
      */
-  
-
     /**
      * Web service operation
+     *
      * @param actividad
-     * @return 
+     * @return
      */
     @WebMethod(operationName = "guardarActividad")
     public Respuesta guardarActividad(@WebParam(name = "actividad") ActividadDto actividad) {
@@ -126,16 +145,17 @@ public class ws {
         } catch (Exception ex) {
             Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
             return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Error guardando la Actividad", ex.getMessage());
-            
+
         }
     }
 
     /**
      * Web service operation
+     *
      * @param ID
-     * @return 
+     * @return
      */
-   /* @WebMethod(operationName = "elminarActividad")
+    /* @WebMethod(operationName = "elminarActividad")
     public Respuesta elminarActividad(@WebParam(name = "ID") Long ID) {
         try {
             Respuesta respuesta = actividadService.eliminarActividad(ID);
@@ -145,11 +165,11 @@ public class ws {
             return new Respuesta(false,CodigoRespuesta.ERROR_CLIENTE, "Error al eliminar la Actividad", ex.getMessage());
         }
     }*/
-
     /**
      * Web service operation
+     *
      * @param seguimiento
-     * @return 
+     * @return
      */
     @WebMethod(operationName = "guardarSeguimiento")
     public Respuesta guardarSeguimiento(@WebParam(name = "seguimiento") SeguimientoDto seguimiento) {
@@ -165,8 +185,9 @@ public class ws {
 
     /**
      * Web service operation
+     *
      * @param ID
-     * @return 
+     * @return
      */
     @WebMethod(operationName = "eliminarSeguimiento")
     public Respuesta eliminarSeguimiento(@WebParam(name = "ID") Long ID) {
@@ -175,14 +196,15 @@ public class ws {
             return respuesta;
         } catch (Exception ex) {
             Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
-            return new Respuesta(false,CodigoRespuesta.ERROR_CLIENTE, "Error al eliminar el seguimiento", ex.getMessage());
+            return new Respuesta(false, CodigoRespuesta.ERROR_CLIENTE, "Error al eliminar el seguimiento", ex.getMessage());
         }
     }
 
     /**
      * Web service operation
+     *
      * @param ID
-     * @return 
+     * @return
      */
     @WebMethod(operationName = "eliminarActividad")
     public Respuesta eliminarActividad(@WebParam(name = "ID") Long ID) {
@@ -192,8 +214,8 @@ public class ws {
             return respuesta;
         } catch (Exception ex) {
             Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
-            return new Respuesta(false,CodigoRespuesta.ERROR_CLIENTE, "Error al eliminar la Actividad", ex.getMessage());
+            return new Respuesta(false, CodigoRespuesta.ERROR_CLIENTE, "Error al eliminar la Actividad", ex.getMessage());
         }
     }
-    
+
 }
