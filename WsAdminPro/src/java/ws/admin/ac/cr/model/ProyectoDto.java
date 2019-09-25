@@ -5,7 +5,6 @@
  */
 package ws.admin.ac.cr.model;
 
-import java.sql.Array;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
