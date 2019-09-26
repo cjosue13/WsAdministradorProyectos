@@ -8,6 +8,7 @@ package ws.admin.ac.cr.model;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -80,7 +81,7 @@ public class Administrador implements Serializable {
     @Basic(optional = false)
     @Column(name = "ADN_VERSION")
     private Long adnVersion;
-    @OneToMany(mappedBy = "proAdministrador", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "proAdministrador", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Proyecto> proyectoList;
 
     public Administrador() {
