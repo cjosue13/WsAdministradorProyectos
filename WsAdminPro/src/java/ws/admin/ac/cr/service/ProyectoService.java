@@ -91,7 +91,7 @@ public class ProyectoService {
             } else {
                 return new Respuesta(false, CodigoRespuesta.ERROR_CLIENTE, "Debe cargar el Proyecto a eliminar.", "EliminarProyecto NoResultException");
             }
-            return new Respuesta(true, CodigoRespuesta.CORRECTO, "", "");
+            return new Respuesta(true, CodigoRespuesta.CORRECTO, "Proyecto Eliminado Con Éxito", "");
         } catch (Exception ex) {
             if (ex.getCause() != null && ex.getCause().getCause().getClass() == SQLIntegrityConstraintViolationException.class) {
                 return new Respuesta(false, CodigoRespuesta.ERROR_PERMISOS, "No se puede eliminar el Proyecto porque tiene relaciones con otros registros.", "EliminarProyecto " + ex.getMessage());
