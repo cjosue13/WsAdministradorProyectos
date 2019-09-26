@@ -56,7 +56,7 @@ public class Seguimiento implements Serializable {
     private Date segFecha;
     @Basic(optional = false)
     @Column(name = "SEG_AVANCE")
-    private Integer segAvance;
+    private Double segAvance;
     @Basic(optional = false)
     @Column(name = "SEG_VERSION")
     private Long segVersion;
@@ -71,7 +71,7 @@ public class Seguimiento implements Serializable {
         this.segId = segId;
     }
 
-    public Seguimiento(Long segId, Date segFecha, Integer segAvance, Long segVersion) {
+    public Seguimiento(Long segId, Date segFecha, Double segAvance, Long segVersion) {
         this.segId = segId;
         this.segFecha = segFecha;
         this.segAvance = segAvance;
@@ -87,8 +87,8 @@ public class Seguimiento implements Serializable {
     public void actualizar(SeguimientoDto seguimiento) {
         this.segAvance = seguimiento.getSegAvance();
         this.segId = seguimiento.getSegId();
-        LocalDate fecha = LocalDate.parse(seguimiento.getSegFecha(), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-        //this.segProyecto = new Proyecto(seguimiento.getSegProyecto());
+        LocalDate fecha = LocalDate.parse(seguimiento.getSegFecha(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.segProyecto = new Proyecto(seguimiento.getSegProyecto());
         this.segFecha = Date.from(fecha.atStartOfDay(ZoneId.systemDefault()).toInstant());
         this.segVersion = seguimiento.getSegVersion();
     }
@@ -109,11 +109,11 @@ public class Seguimiento implements Serializable {
         this.segFecha = segFecha;
     }
 
-    public Integer getSegAvance() {
+    public Double getSegAvance() {
         return segAvance;
     }
 
-    public void setSegAvance(Integer segAvance) {
+    public void setSegAvance(Double segAvance) {
         this.segAvance = segAvance;
     }
 

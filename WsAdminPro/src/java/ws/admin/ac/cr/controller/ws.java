@@ -218,4 +218,20 @@ public class ws {
         }
     }
 
+    /**
+     * Web service operation
+     * @param ID
+     * @return 
+     */
+    @WebMethod(operationName = "getProyecto")
+    public Respuesta getProyecto(@WebParam(name = "ID") Long ID) {
+        try {
+            Respuesta respuesta = proyectoService.getAdministrador(ID);
+            return respuesta;
+        } catch (Exception ex) {
+            Logger.getLogger(ws.class.getName()).log(Level.SEVERE, null, ex);
+            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Error guardando usuario", ex.getMessage());
+        }
+    }
+
 }

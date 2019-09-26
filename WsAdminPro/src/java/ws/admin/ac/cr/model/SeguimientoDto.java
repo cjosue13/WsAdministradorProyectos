@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class SeguimientoDto {
     private Long segId;
     private String segFecha;
-    private Integer segAvance;
+    private Double segAvance;
     private Long segVersion;
     private ProyectoDto segProyecto;
 
@@ -54,11 +54,11 @@ public class SeguimientoDto {
         this.segFecha = segFecha;
     }
 
-    public Integer getSegAvance() {
+    public Double getSegAvance() {
         return segAvance;
     }
 
-    public void setSegAvance(Integer segAvance) {
+    public void setSegAvance(Double segAvance) {
         this.segAvance = segAvance;
     }
 

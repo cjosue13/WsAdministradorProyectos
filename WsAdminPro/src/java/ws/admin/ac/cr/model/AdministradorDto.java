@@ -67,6 +67,8 @@ public class AdministradorDto {
                 //proy.setProAdmin(this);
                 this.proyectos.add(proy);
             }
+        }else{
+            this.proyectos =  new ArrayList();
         }
         /*if(admin.getProyectoList()!=null && !admin.getProyectoList().isEmpty()){
             admin.getProyectoList().forEach(x->{
