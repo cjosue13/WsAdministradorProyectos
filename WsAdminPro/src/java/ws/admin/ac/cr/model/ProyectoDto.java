@@ -49,10 +49,10 @@ public class ProyectoDto {
         this.proCorreotecnico = proyecto.getProCorreotecnico();
         this.proCorreousuario = proyecto.getProCorreousuario();
         this.proEstado = proyecto.getProEstado();
-        this.proFechafinreal = proyecto.getProFechafinreal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
-        this.proFechainireal = proyecto.getProFechainireal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
-        this.proFechainicio = proyecto.getProFechainicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
-        this.proFechafinal = proyecto.getProFechafinal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
+        this.proFechafinreal = proyecto.getProFechafinreal() == null ? null : proyecto.getProFechafinreal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
+        this.proFechainireal = proyecto.getProFechainireal() == null ? null : proyecto.getProFechainireal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
+        this.proFechainicio = proyecto.getProFechainicio() == null ? null : proyecto.getProFechainicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
+        this.proFechafinal = proyecto.getProFechafinal() == null ? null : proyecto.getProFechafinal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
         this.proId = proyecto.getProId();
         this.proLidertecnico = proyecto.getProLidertecnico();
         this.proLiderusuario = proyecto.getProLiderusuario();

@@ -145,15 +145,15 @@ public class Proyecto implements Serializable {
         this.proCorreotecnico = proyecto.getProCorreotecnico();
         this.proCorreousuario = proyecto.getProCorreousuario();
         this.proEstado = proyecto.getProEstado();
-        LocalDate fechFinal = LocalDate.parse(proyecto.getProFechafinal(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        LocalDate fechFinalReal = LocalDate.parse(proyecto.getProFechafinreal(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        LocalDate fechIni = LocalDate.parse(proyecto.getProFechainicio(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        LocalDate fechIniReal = LocalDate.parse(proyecto.getProFechainireal(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        this.proFechafinreal = Date.from(fechFinalReal.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        this.proFechainireal = Date.from(fechIniReal.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        LocalDate fechFinal = proyecto.getProFechafinal() != null ? LocalDate.parse(proyecto.getProFechafinal(), DateTimeFormatter.ofPattern("yyyy-MM-dd")) : null;
+        LocalDate fechFinalReal = proyecto.getProFechafinreal() != null ? LocalDate.parse(proyecto.getProFechafinreal(), DateTimeFormatter.ofPattern("yyyy-MM-dd")) : null;
+        LocalDate fechIni = proyecto.getProFechainicio() != null ? LocalDate.parse(proyecto.getProFechainicio(), DateTimeFormatter.ofPattern("yyyy-MM-dd")) : null;
+        LocalDate fechIniReal = proyecto.getProFechainireal() != null ? LocalDate.parse(proyecto.getProFechainireal(), DateTimeFormatter.ofPattern("yyyy-MM-dd")) : null;
+        this.proFechafinreal = fechFinalReal != null ? Date.from(fechFinalReal.atStartOfDay(ZoneId.systemDefault()).toInstant()) : null;
+        this.proFechainireal = fechIniReal != null ? Date.from(fechIniReal.atStartOfDay(ZoneId.systemDefault()).toInstant()) : null;
         //Agregar 2 fechas que faltan
-        this.proFechafinal = Date.from(fechFinal.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        this.proFechainicio = Date.from(fechIni.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.proFechafinal = fechFinal != null ? Date.from(fechFinal.atStartOfDay(ZoneId.systemDefault()).toInstant()) : null;
+        this.proFechainicio = fechIni != null ? Date.from(fechIni.atStartOfDay(ZoneId.systemDefault()).toInstant()) : null;
         this.proLidertecnico = proyecto.getProLidertecnico();
         this.proLiderusuario = proyecto.getProLiderusuario();
         this.proNombre = proyecto.getProNombre();

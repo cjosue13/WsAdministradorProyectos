@@ -38,10 +38,10 @@ public class ActividadDto {
         this.actDescripcion = actividad.getActDescripcion();
         this.actEncargado = actividad.getActEncargado();
         this.actEstado = actividad.getActEstado();
-        this.actFechafinreal = actividad.getActFechafinreal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
-        this.actFechainireal = actividad.getActFechainireal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
-        this.actFechainicio = actividad.getActFechainicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
-        this.actFechafinal = actividad.getActFechafinal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
+        this.actFechafinreal = actividad.getActFechafinreal() == null ? null : actividad.getActFechafinreal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
+        this.actFechainireal = actividad.getActFechainireal() == null ? null : actividad.getActFechainireal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
+        this.actFechainicio = actividad.getActFechainicio() == null ? null : actividad.getActFechainicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
+        this.actFechafinal = actividad.getActFechafinal() == null ? null : actividad.getActFechafinal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
         this.actId = actividad.getActId();
         this.actNumorden = actividad.getActNumorden();
         //this.actProyecto = new ProyectoDto(actividad.getActProyecto());
