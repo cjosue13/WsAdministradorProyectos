@@ -78,14 +78,14 @@ public class ActividadService {
 
                 em.flush();
 
-                return new Respuesta(true, CodigoRespuesta.CORRECTO, "Actividad guardado exitosamente", "", "Actividad", new ActividadDto(Actividad));
+                return new Respuesta(true, CodigoRespuesta.CORRECTO, "Actividad guardada exitosamente", "", "Actividad", new ActividadDto(Actividad));
             } else {
-                return new Respuesta(false, CodigoRespuesta.ERROR_NOENCONTRADO, "No se encrontró el Proyecto a modificar.", "guardarActividad NoResultException");
+                return new Respuesta(false, CodigoRespuesta.ERROR_NOENCONTRADO, "No se encrontró la Actividad a modificar.", "guardarActividad NoResultException");
             }
 
         } catch (Exception ex) {
-            LOG.log(Level.SEVERE, "Ocurrio un error al guardar el Actividad.", ex);
-            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Ocurrio un error al guardar el Actividad.", "guardarActividad " + ex.getMessage());
+            LOG.log(Level.SEVERE, "Ocurrio un error al guardar la Actividad.", ex);
+            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Ocurrio un error la guardar el Actividad.", "guardarActividad " + ex.getMessage());
         }
     }
 
