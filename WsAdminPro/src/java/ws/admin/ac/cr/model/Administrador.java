@@ -6,6 +6,7 @@
 package ws.admin.ac.cr.model;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -234,5 +235,6 @@ public class Administrador implements Serializable {
     public String toString() {
         return "cr.ac.una.unaplanillaws2.controller.model2.Administrador[ adnId=" + adnId + " ]";
     }
+
     
 }

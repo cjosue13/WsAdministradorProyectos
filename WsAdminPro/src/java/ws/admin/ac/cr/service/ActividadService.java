@@ -102,7 +102,7 @@ public class ActividadService {
             } else {
                 return new Respuesta(false, CodigoRespuesta.ERROR_CLIENTE, "Debe cargar el Actividad a eliminar.", "EliminarActividad NoResultException");
             }
-            return new Respuesta(true, CodigoRespuesta.CORRECTO, "", "");
+            return new Respuesta(true, CodigoRespuesta.CORRECTO, "Actividad Eliminada Exitosamente", "");
         } catch (Exception ex) {
             if (ex.getCause() != null && ex.getCause().getCause().getClass() == SQLIntegrityConstraintViolationException.class) {
                 return new Respuesta(false, CodigoRespuesta.ERROR_PERMISOS, "No se puede eliminar el Actividad porque tiene relaciones con otros registros.", "EliminarActividad " + ex.getMessage());

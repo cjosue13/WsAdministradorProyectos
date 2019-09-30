@@ -6,6 +6,7 @@
 package ws.admin.ac.cr.model;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -63,6 +64,9 @@ public class Actividad implements Serializable {
     @Column(name = "ACT_ENCARGADO")
     private String actEncargado;
     @Basic(optional = false)
+    @Column(name = "ACT_CORREOENCARGADO")
+    private String actCorreoencargado;
+    @Basic(optional = false)
     @Column(name = "ACT_FECHAINICIO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date actFechainicio;
@@ -73,18 +77,18 @@ public class Actividad implements Serializable {
     @Basic(optional = false)
     @Column(name = "ACT_ESTADO")
     private String actEstado;
-    @Basic(optional = false)
-    @Column(name = "ACT_VERSION")
-    private Long actVersion;
-    @Basic(optional = false)
-    @Column(name = "ACT_NUMORDEN")
-    private Integer actNumorden;
     @Column(name = "ACT_FECHAINIREAL")
     @Temporal(TemporalType.TIMESTAMP)
     private Date actFechainireal;
     @Column(name = "ACT_FECHAFINREAL")
     @Temporal(TemporalType.TIMESTAMP)
     private Date actFechafinreal;
+    @Basic(optional = false)
+    @Column(name = "ACT_VERSION")
+    private Long actVersion;
+    @Basic(optional = false)
+    @Column(name = "ACT_NUMORDEN")
+    private Integer actNumorden;
     @JoinColumn(name = "ACT_PROYECTO", referencedColumnName = "PRO_ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Proyecto actProyecto;
@@ -116,6 +120,7 @@ public class Actividad implements Serializable {
     public void actualizar(ActividadDto actividad) {
         this.actDescripcion = actividad.getActDescripcion();
         this.actDescripcion = actividad.getActDescripcion();
+        this.actCorreoencargado = actividad.getActCorreoEncargado();
         this.actEncargado = actividad.getActEncargado();
         this.actEstado = actividad.getActEstado();
         LocalDate fechFinal = actividad.getActFechafinal() == null ? null : LocalDate.parse(actividad.getActFechafinal(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -127,7 +132,7 @@ public class Actividad implements Serializable {
         this.actFechafinal = fechFinal == null ? null : Date.from(fechFinal.atStartOfDay(ZoneId.systemDefault()).toInstant());
         this.actFechainicio = fechIni == null ? null : Date.from(fechIni.atStartOfDay(ZoneId.systemDefault()).toInstant());
         this.actNumorden = actividad.getActNumorden();
-       // this.actProyecto = new Proyecto(actividad.getActProyecto());
+        // this.actProyecto = new Proyecto(actividad.getActProyecto());
         this.actVersion = actividad.getActVersion();
     }
 
@@ -153,6 +158,13 @@ public class Actividad implements Serializable {
 
     public void setActEncargado(String actEncargado) {
         this.actEncargado = actEncargado;
+    }
+     public String getActCorreoencargado() {
+        return actCorreoencargado;
+    }
+
+    public void setActCorreoencargado(String actCorreoencargado) {
+        this.actCorreoencargado = actCorreoencargado;
     }
 
     public Date getActFechainicio() {
@@ -243,5 +255,10 @@ public class Actividad implements Serializable {
     public String toString() {
         return "cr.ac.una.unaplanillaws2.controller.model2.Actividad[ actId=" + actId + " ]";
     }
+
+   
+   
+
+    
 
 }

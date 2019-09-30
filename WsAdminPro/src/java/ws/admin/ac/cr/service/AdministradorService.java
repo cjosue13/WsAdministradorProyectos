@@ -122,7 +122,7 @@ public class AdministradorService {
             } else {
                 return new Respuesta(false, CodigoRespuesta.ERROR_CLIENTE, "Debe cargar el Administrador a eliminar.", "EliminarAdministrador NoResultException");
             }
-            return new Respuesta(true, CodigoRespuesta.CORRECTO, "", "");
+            return new Respuesta(true, CodigoRespuesta.CORRECTO, "Administrador Eliminado Exitosamente", "");
         } catch (Exception ex) {
             if (ex.getCause() != null && ex.getCause().getCause().getClass() == SQLIntegrityConstraintViolationException.class) {
                 return new Respuesta(false, CodigoRespuesta.ERROR_PERMISOS, "No se puede eliminar el Administrador porque tiene relaciones con otros registros.", "EliminarAdministrador " + ex.getMessage());

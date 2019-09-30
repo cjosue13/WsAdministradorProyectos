@@ -22,6 +22,7 @@ public class ActividadDto {
     private Long actId;
     private String actDescripcion;
     private String actEncargado;
+    private String actCorreoEncargado;
     private String actFechainireal;
     private String actFechafinreal;
     private String actFechainicio;
@@ -37,6 +38,7 @@ public class ActividadDto {
     public ActividadDto(Actividad actividad) {
         this.actDescripcion = actividad.getActDescripcion();
         this.actEncargado = actividad.getActEncargado();
+        this.actCorreoEncargado = actividad.getActCorreoencargado();
         this.actEstado = actividad.getActEstado();
         this.actFechafinreal = actividad.getActFechafinreal() == null ? null : actividad.getActFechafinreal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
         this.actFechainireal = actividad.getActFechainireal() == null ? null : actividad.getActFechainireal().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
@@ -49,6 +51,7 @@ public class ActividadDto {
     }
 
     public Long getActId() {
+        
         return actId;
     }
 
@@ -134,6 +137,14 @@ public class ActividadDto {
 
     public void setActFechafinal(String actFechafinal) {
         this.actFechafinal = actFechafinal;
+    }
+
+    public String getActCorreoEncargado() {
+        return actCorreoEncargado;
+    }
+
+    public void setActCorreoEncargado(String actCorreoEncargado) {
+        this.actCorreoEncargado = actCorreoEncargado;
     }
    
     

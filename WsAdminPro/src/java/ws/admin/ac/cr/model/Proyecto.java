@@ -6,6 +6,7 @@
 package ws.admin.ac.cr.model;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -96,15 +97,15 @@ public class Proyecto implements Serializable {
     @Basic(optional = false)
     @Column(name = "PRO_ESTADO")
     private String proEstado;
-    @Basic(optional = false)
-    @Column(name = "PRO_VERSION")
-    private Long proVersion;
     @Column(name = "PRO_FECHAINIREAL")
     @Temporal(TemporalType.TIMESTAMP)
     private Date proFechainireal;
     @Column(name = "PRO_FECHAFINREAL")
     @Temporal(TemporalType.TIMESTAMP)
     private Date proFechafinreal;
+    @Basic(optional = false)
+    @Column(name = "PRO_VERSION")
+    private Long proVersion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "actProyecto", fetch = FetchType.LAZY)
     private List<Actividad> actividadList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "segProyecto", fetch = FetchType.LAZY)
@@ -327,5 +328,7 @@ public class Proyecto implements Serializable {
     public String toString() {
         return "cr.ac.una.unaplanillaws2.controller.model2.Proyecto[ proId=" + proId + " ]";
     }
+
+   
 
 }
