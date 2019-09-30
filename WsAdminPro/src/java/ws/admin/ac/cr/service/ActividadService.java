@@ -35,6 +35,17 @@ public class ActividadService {
     @PersistenceContext(unitName = "WsAdminProPU")
     private EntityManager em;
 
+    public Respuesta getActividad(Long id){
+        try {
+            Query qry = em.createNamedQuery("Actividad.findByActId", Actividad.class);
+            qry.setParameter("actId", id);
+            return new Respuesta(Boolean.TRUE, CodigoRespuesta.CORRECTO, "", "", (ActividadDto) new ActividadDto((Actividad) qry.getSingleResult()));
+        } catch (Exception ex) {
+            LOG.log(Level.SEVERE, "Ocurrio un error al consultar el Actividad.", ex);
+            return new Respuesta(Boolean.FALSE, CodigoRespuesta.ERROR_NOENCONTRADO, "Error", "Error");
+        }
+    }
+    
     public Respuesta getActividades() {
         try {
             Query qryActividad = em.createNamedQuery("Actividad.findAll", Actividad.class);

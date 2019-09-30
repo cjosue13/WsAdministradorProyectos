@@ -233,5 +233,14 @@ public class ws {
             return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Error guardando usuario", ex.getMessage());
         }
     }
-
+    
+    @WebMethod(operationName = "getActividad")
+    public Respuesta getActividad(@WebParam(name = "ID") Long ID) {
+        try {
+            return actividadService.getActividad(ID);
+        } catch (Exception e) {
+            return new Respuesta(Boolean.FALSE, CodigoRespuesta.ERROR_NOENCONTRADO, "Error", "Error");
+        }
+    }
+    
 }
